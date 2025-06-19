@@ -44,8 +44,9 @@ namespace SdG___Prueba
                         if (command.ExecuteScalar() == null)
                         {
                             MessageBox.Show("Nombre de usuario y/o contraseña incorrecto.");
-                            
-                        } else
+
+                        }
+                        else
                         {
                             iniciarFormulario();
                             txtUsuario.Clear();
@@ -54,16 +55,25 @@ namespace SdG___Prueba
                         }
                     }
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
 
         private void iniciarFormulario()
-        {
-            Form1 form = new Form1(this);
-            form.Visible = true;
+        {   
+            FormAdmin formAdmin = new FormAdmin(this);
+            //FormPrincipal form = new FormPrincipal(this);
+            formAdmin.Visible = true;
         }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        
     }
 }
