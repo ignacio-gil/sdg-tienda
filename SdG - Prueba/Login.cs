@@ -64,9 +64,9 @@ namespace SdG___Prueba
 
         private void iniciarFormulario()
         {   
-            FormAdmin formAdmin = new FormAdmin(this);
+            //FormAdmin formAdmin = new FormAdmin(this);
             //FormPrincipal form = new FormPrincipal(this);
-            formAdmin.Visible = true;
+            //formAdmin.Visible = true;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

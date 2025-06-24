@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SdG___Prueba.Modulos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,22 +13,58 @@ namespace SdG___Prueba
 {
     public partial class FormPrincipal : Form
     {
-
-        Login login;
-        public FormPrincipal(Login login)
+        public FormPrincipal()
         {
-            this.login = login;
+            this.IsMdiContainer = true;
             InitializeComponent();
+        }
+
+        private void itemHome_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(typeof(FormHome));
+        }
+
+        private void AbrirFormulario(Type tipoFormulario)
+        {
+            bool existe = false;
+            foreach (Form frm in this.MdiChildren)
+            {
+                if (frm.GetType() == tipoFormulario)
+                {
+                    frm.Show();
+                    existe = true;
+                }
+                else
+                {
+                    frm.Close();
+                }
+            }
+
+            if (existe) { return; }
+
+            Form formularioHijo = (Form)Activator.CreateInstance(tipoFormulario);
+            formularioHijo.MdiParent = this;
+            formularioHijo.WindowState = FormWindowState.Maximized;
+            formularioHijo.Show();
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            this.Closing += Form1_Closing;
+            FormHome formHome = new FormHome();
+            formHome.MdiParent = this;
+            formHome.Show();
         }
 
-        private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void ItemProductos_Click(object sender, EventArgs e)
         {
-            login.Visible = true;
+            AbrirFormulario(typeof(FormProductos));
+        }
+
+        private void ItemProveedores_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(typeof(FormProveedores));
         }
     }
+
+
 }
