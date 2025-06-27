@@ -32,12 +32,10 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutSuperior = new TableLayoutPanel();
             lblTitulo = new Label();
-            txtBuscar = new TextBox();
             tableLayoutBuscarPor = new TableLayoutPanel();
-            labelBuscarPor = new Label();
-            btnBuscar = new Button();
-            cbxBuscarPor = new ComboBox();
             btnActualizar = new Button();
+            txtBuscar = new TextBox();
+            labelBuscarPor = new Label();
             dtvProductos = new DataGridView();
             Codigo = new DataGridViewTextBoxColumn();
             Marca = new DataGridViewTextBoxColumn();
@@ -94,8 +92,7 @@
             tableLayoutSuperior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
             tableLayoutSuperior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
             tableLayoutSuperior.Controls.Add(lblTitulo, 0, 0);
-            tableLayoutSuperior.Controls.Add(txtBuscar, 0, 1);
-            tableLayoutSuperior.Controls.Add(tableLayoutBuscarPor, 1, 1);
+            tableLayoutSuperior.Controls.Add(tableLayoutBuscarPor, 0, 1);
             tableLayoutSuperior.Controls.Add(dtvProductos, 0, 2);
             tableLayoutSuperior.Controls.Add(btnEliminar, 2, 3);
             tableLayoutSuperior.Controls.Add(btnAgregar, 0, 3);
@@ -125,77 +122,34 @@
             lblTitulo.Text = "Productos";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // txtBuscar
-            // 
-            txtBuscar.Anchor = AnchorStyles.None;
-            txtBuscar.Location = new Point(67, 105);
-            txtBuscar.MaxLength = 20;
-            txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(150, 23);
-            txtBuscar.TabIndex = 2;
-            // 
             // tableLayoutBuscarPor
             // 
             tableLayoutBuscarPor.AutoSize = true;
-            tableLayoutBuscarPor.ColumnCount = 4;
-            tableLayoutSuperior.SetColumnSpan(tableLayoutBuscarPor, 2);
-            tableLayoutBuscarPor.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.2222214F));
-            tableLayoutBuscarPor.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.2222233F));
-            tableLayoutBuscarPor.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.2222233F));
-            tableLayoutBuscarPor.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutBuscarPor.ColumnCount = 5;
+            tableLayoutSuperior.SetColumnSpan(tableLayoutBuscarPor, 3);
+            tableLayoutBuscarPor.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutBuscarPor.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutBuscarPor.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40.0000038F));
+            tableLayoutBuscarPor.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
+            tableLayoutBuscarPor.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutBuscarPor.Controls.Add(btnActualizar, 4, 0);
+            tableLayoutBuscarPor.Controls.Add(txtBuscar, 1, 0);
             tableLayoutBuscarPor.Controls.Add(labelBuscarPor, 0, 0);
-            tableLayoutBuscarPor.Controls.Add(btnBuscar, 2, 0);
-            tableLayoutBuscarPor.Controls.Add(cbxBuscarPor, 1, 0);
-            tableLayoutBuscarPor.Controls.Add(btnActualizar, 3, 0);
             tableLayoutBuscarPor.Dock = DockStyle.Fill;
-            tableLayoutBuscarPor.Location = new Point(287, 98);
+            tableLayoutBuscarPor.Location = new Point(10, 98);
+            tableLayoutBuscarPor.Margin = new Padding(10, 3, 3, 3);
             tableLayoutBuscarPor.Name = "tableLayoutBuscarPor";
             tableLayoutBuscarPor.RowCount = 1;
             tableLayoutBuscarPor.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutBuscarPor.Size = new Size(563, 37);
+            tableLayoutBuscarPor.Size = new Size(840, 31);
             tableLayoutBuscarPor.TabIndex = 3;
-            // 
-            // labelBuscarPor
-            // 
-            labelBuscarPor.Anchor = AnchorStyles.Right;
-            labelBuscarPor.AutoSize = true;
-            labelBuscarPor.Location = new Point(59, 11);
-            labelBuscarPor.Name = "labelBuscarPor";
-            labelBuscarPor.Size = new Size(63, 15);
-            labelBuscarPor.TabIndex = 0;
-            labelBuscarPor.Text = "Buscar Por";
-            labelBuscarPor.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // btnBuscar
-            // 
-            btnBuscar.Anchor = AnchorStyles.None;
-            btnBuscar.AutoSize = true;
-            btnBuscar.Font = new Font("Segoe UI", 12F);
-            btnBuscar.Location = new Point(279, 3);
-            btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(66, 31);
-            btnBuscar.TabIndex = 1;
-            btnBuscar.Text = "Buscar";
-            btnBuscar.UseVisualStyleBackColor = true;
-            // 
-            // cbxBuscarPor
-            // 
-            cbxBuscarPor.Anchor = AnchorStyles.Left;
-            cbxBuscarPor.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxBuscarPor.FormattingEnabled = true;
-            cbxBuscarPor.Items.AddRange(new object[] { "Categoría", "Código", "Marca" });
-            cbxBuscarPor.Location = new Point(128, 7);
-            cbxBuscarPor.Name = "cbxBuscarPor";
-            cbxBuscarPor.Size = new Size(119, 23);
-            cbxBuscarPor.TabIndex = 1;
             // 
             // btnActualizar
             // 
             btnActualizar.Anchor = AnchorStyles.Right;
-            btnActualizar.AutoSize = true;
             btnActualizar.BackgroundImage = Properties.Resources.update;
             btnActualizar.BackgroundImageLayout = ImageLayout.Stretch;
-            btnActualizar.Location = new Point(528, 6);
+            btnActualizar.Location = new Point(805, 3);
             btnActualizar.Margin = new Padding(3, 3, 10, 3);
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(25, 25);
@@ -203,12 +157,35 @@
             btnActualizar.UseVisualStyleBackColor = true;
             btnActualizar.Click += btnActualizar_Click;
             // 
+            // txtBuscar
+            // 
+            txtBuscar.Anchor = AnchorStyles.Left;
+            txtBuscar.Location = new Point(54, 4);
+            txtBuscar.MaxLength = 20;
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(200, 23);
+            txtBuscar.TabIndex = 2;
+            txtBuscar.TextChanged += txtBuscar_TextChanged;
+            // 
+            // labelBuscarPor
+            // 
+            labelBuscarPor.Anchor = AnchorStyles.Right;
+            labelBuscarPor.AutoSize = true;
+            labelBuscarPor.Location = new Point(3, 8);
+            labelBuscarPor.Name = "labelBuscarPor";
+            labelBuscarPor.Size = new Size(45, 15);
+            labelBuscarPor.TabIndex = 0;
+            labelBuscarPor.Text = "Buscar:";
+            labelBuscarPor.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // dtvProductos
             // 
             dtvProductos.AllowUserToAddRows = false;
             dtvProductos.AllowUserToDeleteRows = false;
+            dtvProductos.AllowUserToResizeRows = false;
             dtvProductos.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             dtvProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtvProductos.BackgroundColor = SystemColors.ActiveCaption;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
@@ -220,7 +197,7 @@
             dtvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtvProductos.Columns.AddRange(new DataGridViewColumn[] { Codigo, Marca, Modelo, Cantidad, Precio_unitario });
             tableLayoutSuperior.SetColumnSpan(dtvProductos, 3);
-            dtvProductos.Location = new Point(10, 141);
+            dtvProductos.Location = new Point(10, 135);
             dtvProductos.Margin = new Padding(10, 3, 10, 3);
             dtvProductos.MultiSelect = false;
             dtvProductos.Name = "dtvProductos";
@@ -229,6 +206,7 @@
             dtvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtvProductos.Size = new Size(833, 250);
             dtvProductos.TabIndex = 4;
+            dtvProductos.SelectionChanged += dtvProductos_SelectionChanged;
             // 
             // Codigo
             // 
@@ -270,7 +248,7 @@
             btnEliminar.Anchor = AnchorStyles.None;
             btnEliminar.AutoSize = true;
             btnEliminar.Font = new Font("Segoe UI", 12F);
-            btnEliminar.Location = new Point(672, 397);
+            btnEliminar.Location = new Point(672, 392);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(77, 31);
             btnEliminar.TabIndex = 5;
@@ -283,7 +261,7 @@
             btnAgregar.Anchor = AnchorStyles.None;
             btnAgregar.AutoSize = true;
             btnAgregar.Font = new Font("Segoe UI", 12F);
-            btnAgregar.Location = new Point(104, 397);
+            btnAgregar.Location = new Point(104, 392);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(76, 31);
             btnAgregar.TabIndex = 7;
@@ -296,9 +274,9 @@
             btnModificar.Anchor = AnchorStyles.None;
             btnModificar.AutoSize = true;
             btnModificar.Font = new Font("Segoe UI", 12F);
-            btnModificar.Location = new Point(383, 397);
+            btnModificar.Location = new Point(381, 391);
             btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(86, 31);
+            btnModificar.Size = new Size(90, 33);
             btnModificar.TabIndex = 6;
             btnModificar.Text = "Modificar";
             btnModificar.UseVisualStyleBackColor = true;
@@ -310,9 +288,11 @@
             groupBox1.Dock = DockStyle.Fill;
             groupBox1.Location = new Point(3, 435);
             groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(10);
             groupBox1.Size = new Size(853, 241);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
+            groupBox1.Text = "Detalle Producto";
             // 
             // tableLayoutInferior
             // 
@@ -336,14 +316,14 @@
             tableLayoutInferior.Controls.Add(btnCancelar, 2, 3);
             tableLayoutInferior.Controls.Add(cbxMarca, 3, 0);
             tableLayoutInferior.Dock = DockStyle.Fill;
-            tableLayoutInferior.Location = new Point(3, 19);
+            tableLayoutInferior.Location = new Point(10, 26);
             tableLayoutInferior.Name = "tableLayoutInferior";
             tableLayoutInferior.RowCount = 4;
             tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333359F));
             tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333359F));
             tableLayoutInferior.RowStyles.Add(new RowStyle());
-            tableLayoutInferior.Size = new Size(847, 219);
+            tableLayoutInferior.Size = new Size(833, 205);
             tableLayoutInferior.TabIndex = 0;
             // 
             // labelCod
@@ -351,7 +331,7 @@
             labelCod.Anchor = AnchorStyles.Right;
             labelCod.AutoSize = true;
             labelCod.Font = new Font("Segoe UI", 12F);
-            labelCod.Location = new Point(148, 19);
+            labelCod.Location = new Point(145, 17);
             labelCod.Name = "labelCod";
             labelCod.Size = new Size(60, 21);
             labelCod.TabIndex = 0;
@@ -361,8 +341,9 @@
             // 
             txtCod.Anchor = AnchorStyles.Left;
             txtCod.Enabled = false;
-            txtCod.Location = new Point(214, 18);
+            txtCod.Location = new Point(211, 16);
             txtCod.Name = "txtCod";
+            txtCod.ShortcutsEnabled = false;
             txtCod.Size = new Size(130, 23);
             txtCod.TabIndex = 1;
             // 
@@ -371,7 +352,7 @@
             lblMarca.Anchor = AnchorStyles.Right;
             lblMarca.AutoSize = true;
             lblMarca.Font = new Font("Segoe UI", 12F);
-            lblMarca.Location = new Point(577, 19);
+            lblMarca.Location = new Point(568, 17);
             lblMarca.Name = "lblMarca";
             lblMarca.Size = new Size(53, 21);
             lblMarca.TabIndex = 2;
@@ -382,7 +363,7 @@
             lblModelo.Anchor = AnchorStyles.Right;
             lblModelo.AutoSize = true;
             lblModelo.Font = new Font("Segoe UI", 12F);
-            lblModelo.Location = new Point(145, 79);
+            lblModelo.Location = new Point(142, 72);
             lblModelo.Name = "lblModelo";
             lblModelo.Size = new Size(63, 21);
             lblModelo.TabIndex = 4;
@@ -392,7 +373,7 @@
             // 
             txtModelo.Anchor = AnchorStyles.Left;
             txtModelo.Enabled = false;
-            txtModelo.Location = new Point(214, 78);
+            txtModelo.Location = new Point(211, 71);
             txtModelo.Name = "txtModelo";
             txtModelo.Size = new Size(130, 23);
             txtModelo.TabIndex = 5;
@@ -402,7 +383,7 @@
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(553, 79);
+            label2.Location = new Point(544, 72);
             label2.Name = "label2";
             label2.Size = new Size(77, 21);
             label2.TabIndex = 6;
@@ -414,7 +395,7 @@
             cbxCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxCategoria.Enabled = false;
             cbxCategoria.FormattingEnabled = true;
-            cbxCategoria.Location = new Point(636, 78);
+            cbxCategoria.Location = new Point(627, 71);
             cbxCategoria.Name = "cbxCategoria";
             cbxCategoria.Size = new Size(130, 23);
             cbxCategoria.TabIndex = 7;
@@ -424,7 +405,7 @@
             lblCantidad.Anchor = AnchorStyles.Right;
             lblCantidad.AutoSize = true;
             lblCantidad.Font = new Font("Segoe UI", 12F);
-            lblCantidad.Location = new Point(136, 139);
+            lblCantidad.Location = new Point(133, 128);
             lblCantidad.Name = "lblCantidad";
             lblCantidad.Size = new Size(72, 21);
             lblCantidad.TabIndex = 8;
@@ -434,7 +415,7 @@
             // 
             txtCantidad.Anchor = AnchorStyles.Left;
             txtCantidad.Enabled = false;
-            txtCantidad.Location = new Point(214, 138);
+            txtCantidad.Location = new Point(211, 127);
             txtCantidad.Name = "txtCantidad";
             txtCantidad.Size = new Size(130, 23);
             txtCantidad.TabIndex = 9;
@@ -444,7 +425,7 @@
             lblPrecio.Anchor = AnchorStyles.Right;
             lblPrecio.AutoSize = true;
             lblPrecio.Font = new Font("Segoe UI", 12F);
-            lblPrecio.Location = new Point(577, 139);
+            lblPrecio.Location = new Point(568, 128);
             lblPrecio.Name = "lblPrecio";
             lblPrecio.Size = new Size(53, 21);
             lblPrecio.TabIndex = 10;
@@ -454,7 +435,7 @@
             // 
             txtPrecio.Anchor = AnchorStyles.Left;
             txtPrecio.Enabled = false;
-            txtPrecio.Location = new Point(636, 138);
+            txtPrecio.Location = new Point(627, 127);
             txtPrecio.Name = "txtPrecio";
             txtPrecio.Size = new Size(130, 23);
             txtPrecio.TabIndex = 11;
@@ -464,7 +445,7 @@
             btnAceptar.Anchor = AnchorStyles.None;
             btnAceptar.AutoSize = true;
             btnAceptar.Font = new Font("Segoe UI", 12F);
-            btnAceptar.Location = new Point(279, 184);
+            btnAceptar.Location = new Point(274, 170);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(75, 31);
             btnAceptar.TabIndex = 12;
@@ -478,7 +459,7 @@
             btnCancelar.Anchor = AnchorStyles.None;
             btnCancelar.AutoSize = true;
             btnCancelar.Font = new Font("Segoe UI", 12F);
-            btnCancelar.Location = new Point(487, 184);
+            btnCancelar.Location = new Point(480, 170);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(80, 31);
             btnCancelar.TabIndex = 13;
@@ -493,7 +474,7 @@
             cbxMarca.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxMarca.Enabled = false;
             cbxMarca.FormattingEnabled = true;
-            cbxMarca.Location = new Point(636, 18);
+            cbxMarca.Location = new Point(627, 16);
             cbxMarca.Name = "cbxMarca";
             cbxMarca.Size = new Size(130, 23);
             cbxMarca.TabIndex = 14;
@@ -502,6 +483,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = Color.FromArgb(164, 214, 255);
             ClientSize = new Size(859, 784);
             ControlBox = false;
@@ -530,7 +512,6 @@
         private TextBox txtBuscar;
         private TableLayoutPanel tableLayoutBuscarPor;
         private Label labelBuscarPor;
-        private ComboBox cbxBuscarPor;
         private DataGridView dtvProductos;
         private GroupBox groupBox1;
         private TableLayoutPanel tableLayoutInferior;
@@ -556,7 +537,6 @@
         private Button btnEliminar;
         private Button btnModificar;
         private Button btnAgregar;
-        private Button btnBuscar;
         private Button btnActualizar;
     }
 }

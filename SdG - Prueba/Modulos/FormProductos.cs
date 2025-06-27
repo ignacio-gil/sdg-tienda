@@ -2,11 +2,13 @@
 using MySql.Data.MySqlClient;
 using SdG___Prueba.Clases;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,6 +20,8 @@ namespace SdG___Prueba.Modulos
     {
         private string codProductoSel = "";
         private int opcionElegida = 0;
+        DataGridView dtvProductos2;
+
         public FormProductos()
         {
             InitializeComponent();
@@ -25,6 +29,8 @@ namespace SdG___Prueba.Modulos
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            dtvProductos.ClearSelection();
+            limpiarCajas();
             activarCajas(true);
             opcionElegida = 1;
         }
@@ -33,6 +39,7 @@ namespace SdG___Prueba.Modulos
         {
             activarCajas(false);
             limpiarCajas();
+            dtvProductos.ClearSelection();
         }
 
         private void agregarProducto()
@@ -137,6 +144,7 @@ namespace SdG___Prueba.Modulos
 
         private void FormProductos_Load(object sender, EventArgs e)
         {
+            crearDtvCopiar();
             cargarMarcas();
             cargarCategorias();
             cargarDtvProductos();
@@ -167,6 +175,8 @@ namespace SdG___Prueba.Modulos
 
         private void activarCajas(bool activar)
         {
+            dtvProductos.Enabled = !activar;
+
             txtCod.Enabled = activar;
             cbxMarca.Enabled = activar;
             txtModelo.Enabled = activar;
@@ -178,8 +188,8 @@ namespace SdG___Prueba.Modulos
             btnCancelar.Visible = activar;
 
             btnAgregar.Enabled = !activar;
-            btnModificar.Enabled = !activar;
-            btnEliminar.Enabled = !activar;
+            //btnModificar.Enabled = !activar;
+            //btnEliminar.Enabled = !activar;
         }
 
         private void limpiarCajas()
@@ -207,6 +217,8 @@ namespace SdG___Prueba.Modulos
                     {
                         MySqlDataReader reader = command.ExecuteReader();
 
+                        dtvProductos2.Rows.Clear();
+
                         while (reader.Read())
                         {
 
@@ -219,8 +231,11 @@ namespace SdG___Prueba.Modulos
                             };
 
                             dtvProductos.Rows.Add(row);
-
+                            dtvProductos2.Rows.Add(row);
                         }
+
+                        dtvProductos.ClearSelection();
+                        limpiarCajas();
                     }
                 }
             }
@@ -241,17 +256,6 @@ namespace SdG___Prueba.Modulos
 
             if (dtvProductos.SelectedRows.Count > 0)
             {
-                DataGridViewRow filaSeleccionada = dtvProductos.SelectedRows[0];
-                codProductoSel = filaSeleccionada.Cells["Codigo"].Value.ToString();
-                Producto producto = buscarProducto(codProductoSel);
-
-                txtCod.Text = producto.Codigo;
-                cbxMarca.SelectedIndex = producto.IdMarca;
-                txtModelo.Text = producto.Modelo;
-                cbxCategoria.SelectedIndex = producto.IdCat;
-                txtCantidad.Text = producto.Cantidad.ToString();
-                txtPrecio.Text = producto.Precio.ToString();
-
                 activarCajas(true);
                 opcionElegida = 2;
             }
@@ -387,6 +391,7 @@ namespace SdG___Prueba.Modulos
                                 {
                                     dtvProductos.Rows.Clear();
                                     cargarDtvProductos();
+                                    codProductoSel = "";
                                 }
                             }
                         }
@@ -397,11 +402,91 @@ namespace SdG___Prueba.Modulos
 
                     }
                 }
-                
+
             }
             else
             {
                 MessageBox.Show("Seleccione un producto de la lista por favor.");
+            }
+        }
+
+        private void buscarEnDtv(string texto)
+        {
+            if (texto.Equals(""))
+            {
+                dtvProductos.Rows.Clear();
+                cargarDtvProductos();
+            }
+            else
+            {
+                List<DataGridViewRow> filas = [];
+
+                for (int i = 0; i < dtvProductos2.RowCount; i++)
+                {
+                    DataGridViewRow fila = dtvProductos2.Rows[i];
+                    if (fila.Cells["Codigo"].Value.ToString().Contains(texto))
+                    {
+                        filas.Add(fila);
+                    }
+                }
+
+                dtvProductos.Rows.Clear();
+
+                foreach (DataGridViewRow item in filas)
+                {
+                    string[] row = {
+                                item.Cells["Codigo"].Value.ToString(),
+                                item.Cells["Marca"].Value.ToString(),
+                                item.Cells["Modelo"].Value.ToString(),
+                                item.Cells["Cantidad"].Value.ToString(),
+                                item.Cells["Precio_unitario"].Value.ToString()
+                    };
+
+                    dtvProductos.Rows.Add(row);
+                }
+            }
+        }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            buscarEnDtv(txtBuscar.Text);
+        }
+
+        private void crearDtvCopiar()
+        {
+            dtvProductos2 = new DataGridView();
+
+            dtvProductos2.AllowUserToAddRows = dtvProductos.AllowUserToAddRows;
+            dtvProductos2.AllowUserToDeleteRows = dtvProductos.AllowUserToDeleteRows;
+
+            foreach (DataGridViewColumn columna in dtvProductos.Columns)
+            {
+                dtvProductos2.Columns.Add(columna.Clone() as DataGridViewColumn);
+            }
+        }
+
+        private void dtvProductos_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dtvProductos.SelectedRows.Count>0)
+            {
+                btnModificar.Enabled = true;
+                btnEliminar.Enabled = true;
+
+                DataGridViewRow filaSeleccionada = dtvProductos.SelectedRows[0];
+                codProductoSel = filaSeleccionada.Cells["Codigo"].Value.ToString();
+                Producto producto = buscarProducto(codProductoSel);
+
+                txtCod.Text = producto.Codigo;
+                cbxMarca.SelectedIndex = producto.IdMarca;
+                txtModelo.Text = producto.Modelo;
+                cbxCategoria.SelectedIndex = producto.IdCat;
+                txtCantidad.Text = producto.Cantidad.ToString();
+                txtPrecio.Text = producto.Precio.ToString();
+            }
+            else
+            {
+                btnModificar.Enabled = false;
+                btnEliminar.Enabled = false;
             }
         }
     }

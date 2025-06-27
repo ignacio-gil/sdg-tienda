@@ -32,11 +32,12 @@ namespace SdG___Prueba
                 if (frm.GetType() == tipoFormulario)
                 {
                     frm.Show();
+                    frm.WindowState = FormWindowState.Maximized;
                     existe = true;
                 }
                 else
                 {
-                    frm.Close();
+                    frm.Hide();
                 }
             }
 
