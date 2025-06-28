@@ -116,7 +116,7 @@
             menuStrip1.Location = new Point(0, 110);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(0);
-            menuStrip1.Size = new Size(205, 315);
+            menuStrip1.Size = new Size(205, 316);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -182,6 +182,7 @@
             ItemVentas.Padding = new Padding(0);
             ItemVentas.Size = new Size(200, 45);
             ItemVentas.Text = "Ventas";
+            ItemVentas.Click += ItemVentas_Click;
             // 
             // ItemCaja
             // 
@@ -213,6 +214,7 @@
             MainMenuStrip = menuStrip2;
             Name = "FormPrincipal";
             Text = "Form2";
+            TransparencyKey = Color.Salmon;
             WindowState = FormWindowState.Maximized;
             Load += FormPrincipal_Load;
             tableLayoutPanel1.ResumeLayout(false);

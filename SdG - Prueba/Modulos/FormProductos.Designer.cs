@@ -55,34 +55,40 @@
             label2 = new Label();
             cbxCategoria = new ComboBox();
             lblCantidad = new Label();
-            txtCantidad = new TextBox();
             lblPrecio = new Label();
-            txtPrecio = new TextBox();
             btnAceptar = new Button();
             btnCancelar = new Button();
             cbxMarca = new ComboBox();
+            numCantidad = new NumericUpDown();
+            numPrecio = new NumericUpDown();
+            btnAgregarMarca = new Button();
+            tableLayoutPanel2 = new TableLayoutPanel();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutSuperior.SuspendLayout();
             tableLayoutBuscarPor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtvProductos).BeginInit();
             groupBox1.SuspendLayout();
             tableLayoutInferior.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numCantidad).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numPrecio).BeginInit();
+            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
+            tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.Controls.Add(tableLayoutSuperior, 0, 0);
             tableLayoutPanel1.Controls.Add(groupBox1, 0, 1);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Location = new Point(50, 0);
+            tableLayoutPanel1.Margin = new Padding(50, 0, 50, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 432F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(859, 784);
+            tableLayoutPanel1.Size = new Size(861, 731);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutSuperior
@@ -105,7 +111,7 @@
             tableLayoutSuperior.RowStyles.Add(new RowStyle());
             tableLayoutSuperior.RowStyles.Add(new RowStyle());
             tableLayoutSuperior.RowStyles.Add(new RowStyle());
-            tableLayoutSuperior.Size = new Size(853, 426);
+            tableLayoutSuperior.Size = new Size(855, 426);
             tableLayoutSuperior.TabIndex = 0;
             // 
             // lblTitulo
@@ -117,7 +123,7 @@
             lblTitulo.Location = new Point(3, 0);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Padding = new Padding(0, 40, 0, 25);
-            lblTitulo.Size = new Size(847, 95);
+            lblTitulo.Size = new Size(849, 95);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Productos";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -141,7 +147,7 @@
             tableLayoutBuscarPor.Name = "tableLayoutBuscarPor";
             tableLayoutBuscarPor.RowCount = 1;
             tableLayoutBuscarPor.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutBuscarPor.Size = new Size(840, 31);
+            tableLayoutBuscarPor.Size = new Size(842, 31);
             tableLayoutBuscarPor.TabIndex = 3;
             // 
             // btnActualizar
@@ -149,7 +155,7 @@
             btnActualizar.Anchor = AnchorStyles.Right;
             btnActualizar.BackgroundImage = Properties.Resources.update;
             btnActualizar.BackgroundImageLayout = ImageLayout.Stretch;
-            btnActualizar.Location = new Point(805, 3);
+            btnActualizar.Location = new Point(807, 3);
             btnActualizar.Margin = new Padding(3, 3, 10, 3);
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(25, 25);
@@ -204,7 +210,7 @@
             dtvProductos.ReadOnly = true;
             dtvProductos.RowHeadersVisible = false;
             dtvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtvProductos.Size = new Size(833, 250);
+            dtvProductos.Size = new Size(835, 250);
             dtvProductos.TabIndex = 4;
             dtvProductos.SelectionChanged += dtvProductos_SelectionChanged;
             // 
@@ -248,7 +254,7 @@
             btnEliminar.Anchor = AnchorStyles.None;
             btnEliminar.AutoSize = true;
             btnEliminar.Font = new Font("Segoe UI", 12F);
-            btnEliminar.Location = new Point(672, 392);
+            btnEliminar.Location = new Point(673, 392);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(77, 31);
             btnEliminar.TabIndex = 5;
@@ -289,18 +295,19 @@
             groupBox1.Location = new Point(3, 435);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(10);
-            groupBox1.Size = new Size(853, 241);
+            groupBox1.Size = new Size(855, 241);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Detalle Producto";
             // 
             // tableLayoutInferior
             // 
-            tableLayoutInferior.ColumnCount = 4;
-            tableLayoutInferior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutInferior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutInferior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutInferior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutInferior.ColumnCount = 5;
+            tableLayoutInferior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.2222176F));
+            tableLayoutInferior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.2222233F));
+            tableLayoutInferior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.2222233F));
+            tableLayoutInferior.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutInferior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             tableLayoutInferior.Controls.Add(labelCod, 0, 0);
             tableLayoutInferior.Controls.Add(txtCod, 1, 0);
             tableLayoutInferior.Controls.Add(lblMarca, 2, 0);
@@ -309,21 +316,22 @@
             tableLayoutInferior.Controls.Add(label2, 2, 1);
             tableLayoutInferior.Controls.Add(cbxCategoria, 3, 1);
             tableLayoutInferior.Controls.Add(lblCantidad, 0, 2);
-            tableLayoutInferior.Controls.Add(txtCantidad, 1, 2);
             tableLayoutInferior.Controls.Add(lblPrecio, 2, 2);
-            tableLayoutInferior.Controls.Add(txtPrecio, 3, 2);
             tableLayoutInferior.Controls.Add(btnAceptar, 1, 3);
             tableLayoutInferior.Controls.Add(btnCancelar, 2, 3);
             tableLayoutInferior.Controls.Add(cbxMarca, 3, 0);
+            tableLayoutInferior.Controls.Add(numCantidad, 1, 2);
+            tableLayoutInferior.Controls.Add(numPrecio, 3, 2);
+            tableLayoutInferior.Controls.Add(btnAgregarMarca, 4, 0);
             tableLayoutInferior.Dock = DockStyle.Fill;
             tableLayoutInferior.Location = new Point(10, 26);
             tableLayoutInferior.Name = "tableLayoutInferior";
             tableLayoutInferior.RowCount = 4;
+            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33333F));
             tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333359F));
-            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutInferior.RowStyles.Add(new RowStyle());
-            tableLayoutInferior.Size = new Size(833, 205);
+            tableLayoutInferior.Size = new Size(835, 205);
             tableLayoutInferior.TabIndex = 0;
             // 
             // labelCod
@@ -331,7 +339,7 @@
             labelCod.Anchor = AnchorStyles.Right;
             labelCod.AutoSize = true;
             labelCod.Font = new Font("Segoe UI", 12F);
-            labelCod.Location = new Point(145, 17);
+            labelCod.Location = new Point(90, 17);
             labelCod.Name = "labelCod";
             labelCod.Size = new Size(60, 21);
             labelCod.TabIndex = 0;
@@ -341,7 +349,7 @@
             // 
             txtCod.Anchor = AnchorStyles.Left;
             txtCod.Enabled = false;
-            txtCod.Location = new Point(211, 16);
+            txtCod.Location = new Point(156, 16);
             txtCod.Name = "txtCod";
             txtCod.ShortcutsEnabled = false;
             txtCod.Size = new Size(130, 23);
@@ -352,7 +360,7 @@
             lblMarca.Anchor = AnchorStyles.Right;
             lblMarca.AutoSize = true;
             lblMarca.Font = new Font("Segoe UI", 12F);
-            lblMarca.Location = new Point(568, 17);
+            lblMarca.Location = new Point(403, 17);
             lblMarca.Name = "lblMarca";
             lblMarca.Size = new Size(53, 21);
             lblMarca.TabIndex = 2;
@@ -363,7 +371,7 @@
             lblModelo.Anchor = AnchorStyles.Right;
             lblModelo.AutoSize = true;
             lblModelo.Font = new Font("Segoe UI", 12F);
-            lblModelo.Location = new Point(142, 72);
+            lblModelo.Location = new Point(87, 73);
             lblModelo.Name = "lblModelo";
             lblModelo.Size = new Size(63, 21);
             lblModelo.TabIndex = 4;
@@ -373,7 +381,7 @@
             // 
             txtModelo.Anchor = AnchorStyles.Left;
             txtModelo.Enabled = false;
-            txtModelo.Location = new Point(211, 71);
+            txtModelo.Location = new Point(156, 72);
             txtModelo.Name = "txtModelo";
             txtModelo.Size = new Size(130, 23);
             txtModelo.TabIndex = 5;
@@ -383,7 +391,7 @@
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(544, 72);
+            label2.Location = new Point(379, 73);
             label2.Name = "label2";
             label2.Size = new Size(77, 21);
             label2.TabIndex = 6;
@@ -395,9 +403,9 @@
             cbxCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxCategoria.Enabled = false;
             cbxCategoria.FormattingEnabled = true;
-            cbxCategoria.Location = new Point(627, 71);
+            cbxCategoria.Location = new Point(462, 72);
             cbxCategoria.Name = "cbxCategoria";
-            cbxCategoria.Size = new Size(130, 23);
+            cbxCategoria.Size = new Size(140, 23);
             cbxCategoria.TabIndex = 7;
             // 
             // lblCantidad
@@ -405,47 +413,29 @@
             lblCantidad.Anchor = AnchorStyles.Right;
             lblCantidad.AutoSize = true;
             lblCantidad.Font = new Font("Segoe UI", 12F);
-            lblCantidad.Location = new Point(133, 128);
+            lblCantidad.Location = new Point(78, 129);
             lblCantidad.Name = "lblCantidad";
             lblCantidad.Size = new Size(72, 21);
             lblCantidad.TabIndex = 8;
             lblCantidad.Text = "Cantidad";
-            // 
-            // txtCantidad
-            // 
-            txtCantidad.Anchor = AnchorStyles.Left;
-            txtCantidad.Enabled = false;
-            txtCantidad.Location = new Point(211, 127);
-            txtCantidad.Name = "txtCantidad";
-            txtCantidad.Size = new Size(130, 23);
-            txtCantidad.TabIndex = 9;
             // 
             // lblPrecio
             // 
             lblPrecio.Anchor = AnchorStyles.Right;
             lblPrecio.AutoSize = true;
             lblPrecio.Font = new Font("Segoe UI", 12F);
-            lblPrecio.Location = new Point(568, 128);
+            lblPrecio.Location = new Point(403, 129);
             lblPrecio.Name = "lblPrecio";
             lblPrecio.Size = new Size(53, 21);
             lblPrecio.TabIndex = 10;
             lblPrecio.Text = "Precio";
-            // 
-            // txtPrecio
-            // 
-            txtPrecio.Anchor = AnchorStyles.Left;
-            txtPrecio.Enabled = false;
-            txtPrecio.Location = new Point(627, 127);
-            txtPrecio.Name = "txtPrecio";
-            txtPrecio.Size = new Size(130, 23);
-            txtPrecio.TabIndex = 11;
             // 
             // btnAceptar
             // 
             btnAceptar.Anchor = AnchorStyles.None;
             btnAceptar.AutoSize = true;
             btnAceptar.Font = new Font("Segoe UI", 12F);
-            btnAceptar.Location = new Point(274, 170);
+            btnAceptar.Location = new Point(192, 171);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(75, 31);
             btnAceptar.TabIndex = 12;
@@ -459,7 +449,7 @@
             btnCancelar.Anchor = AnchorStyles.None;
             btnCancelar.AutoSize = true;
             btnCancelar.Font = new Font("Segoe UI", 12F);
-            btnCancelar.Location = new Point(480, 170);
+            btnCancelar.Location = new Point(342, 171);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(80, 31);
             btnCancelar.TabIndex = 13;
@@ -474,10 +464,57 @@
             cbxMarca.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxMarca.Enabled = false;
             cbxMarca.FormattingEnabled = true;
-            cbxMarca.Location = new Point(627, 16);
+            cbxMarca.Location = new Point(462, 16);
             cbxMarca.Name = "cbxMarca";
-            cbxMarca.Size = new Size(130, 23);
+            cbxMarca.Size = new Size(140, 23);
             cbxMarca.TabIndex = 14;
+            // 
+            // numCantidad
+            // 
+            numCantidad.Anchor = AnchorStyles.Left;
+            numCantidad.Enabled = false;
+            numCantidad.Location = new Point(156, 128);
+            numCantidad.Name = "numCantidad";
+            numCantidad.Size = new Size(66, 23);
+            numCantidad.TabIndex = 15;
+            numCantidad.TextAlign = HorizontalAlignment.Center;
+            // 
+            // numPrecio
+            // 
+            numPrecio.Anchor = AnchorStyles.Left;
+            numPrecio.DecimalPlaces = 2;
+            numPrecio.Enabled = false;
+            numPrecio.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
+            numPrecio.Location = new Point(462, 128);
+            numPrecio.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            numPrecio.Name = "numPrecio";
+            numPrecio.Size = new Size(120, 23);
+            numPrecio.TabIndex = 16;
+            numPrecio.TextAlign = HorizontalAlignment.Center;
+            // 
+            // btnAgregarMarca
+            // 
+            btnAgregarMarca.Anchor = AnchorStyles.Left;
+            btnAgregarMarca.Location = new Point(608, 15);
+            btnAgregarMarca.Name = "btnAgregarMarca";
+            btnAgregarMarca.Size = new Size(25, 25);
+            btnAgregarMarca.TabIndex = 17;
+            btnAgregarMarca.Text = "+";
+            btnAgregarMarca.UseVisualStyleBackColor = true;
+            btnAgregarMarca.Click += btnAgregarMarca_Click;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(tableLayoutPanel1, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(0, 0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Size = new Size(961, 784);
+            tableLayoutPanel2.TabIndex = 1;
             // 
             // FormProductos
             // 
@@ -485,9 +522,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(164, 214, 255);
-            ClientSize = new Size(859, 784);
+            ClientSize = new Size(961, 784);
             ControlBox = false;
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(tableLayoutPanel2);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormProductos";
             Text = "FormProductos";
@@ -501,6 +538,9 @@
             groupBox1.ResumeLayout(false);
             tableLayoutInferior.ResumeLayout(false);
             tableLayoutInferior.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numCantidad).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numPrecio).EndInit();
+            tableLayoutPanel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -523,9 +563,7 @@
         private Label label2;
         private ComboBox cbxCategoria;
         private Label lblCantidad;
-        private TextBox txtCantidad;
         private Label lblPrecio;
-        private TextBox txtPrecio;
         private DataGridViewTextBoxColumn Codigo;
         private DataGridViewTextBoxColumn Marca;
         private DataGridViewTextBoxColumn Modelo;
@@ -538,5 +576,9 @@
         private Button btnModificar;
         private Button btnAgregar;
         private Button btnActualizar;
+        private NumericUpDown numCantidad;
+        private NumericUpDown numPrecio;
+        private Button btnAgregarMarca;
+        private TableLayoutPanel tableLayoutPanel2;
     }
 }

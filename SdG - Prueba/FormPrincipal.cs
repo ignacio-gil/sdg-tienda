@@ -1,4 +1,5 @@
-﻿using SdG___Prueba.Modulos;
+﻿using Org.BouncyCastle.Asn1.Cms;
+using SdG___Prueba.Modulos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace SdG___Prueba
 {
@@ -64,6 +66,11 @@ namespace SdG___Prueba
         private void ItemProveedores_Click(object sender, EventArgs e)
         {
             AbrirFormulario(typeof(FormProveedores));
+        }
+
+        private void ItemVentas_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(typeof(FormVentas));
         }
     }
 

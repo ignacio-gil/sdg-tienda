@@ -49,8 +49,8 @@ namespace SdG___Prueba.Modulos
                 string codigo = txtCod.Text;
                 int idMarca = cbxMarca.SelectedIndex;
                 string modelo = txtModelo.Text;
-                int cantidad = Convert.ToInt32(txtCantidad.Text);
-                float precio = float.Parse(txtPrecio.Text);
+                int cantidad = Convert.ToInt32(numCantidad.Value);
+                float precio = float.Parse(numPrecio.Value.ToString());
                 int idCategoria = cbxCategoria.SelectedIndex;
 
                 string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
@@ -181,8 +181,8 @@ namespace SdG___Prueba.Modulos
             cbxMarca.Enabled = activar;
             txtModelo.Enabled = activar;
             cbxCategoria.Enabled = activar;
-            txtCantidad.Enabled = activar;
-            txtPrecio.Enabled = activar;
+            numCantidad.Enabled = activar;
+            numPrecio.Enabled = activar;
 
             btnAceptar.Visible = activar;
             btnCancelar.Visible = activar;
@@ -198,8 +198,8 @@ namespace SdG___Prueba.Modulos
             cbxMarca.SelectedIndex = -1;
             txtModelo.Clear();
             cbxCategoria.SelectedIndex = -1;
-            txtCantidad.Clear();
-            txtPrecio.Clear();
+            numCantidad.Value = 0;
+            numPrecio.Value = 0;
         }
 
         private void cargarDtvProductos()
@@ -274,8 +274,8 @@ namespace SdG___Prueba.Modulos
                     txtCod.Text,
                     cbxMarca.SelectedIndex,
                     txtModelo.Text,
-                    Convert.ToInt32(txtCantidad.Text),
-                    float.Parse(txtPrecio.Text),
+                    Convert.ToInt32(numCantidad.Value),
+                    float.Parse(numPrecio.Value.ToString()),
                     cbxCategoria.SelectedIndex
                 );
 
@@ -467,7 +467,7 @@ namespace SdG___Prueba.Modulos
 
         private void dtvProductos_SelectionChanged(object sender, EventArgs e)
         {
-            if (dtvProductos.SelectedRows.Count>0)
+            if (dtvProductos.SelectedRows.Count > 0)
             {
                 btnModificar.Enabled = true;
                 btnEliminar.Enabled = true;
@@ -480,14 +480,21 @@ namespace SdG___Prueba.Modulos
                 cbxMarca.SelectedIndex = producto.IdMarca;
                 txtModelo.Text = producto.Modelo;
                 cbxCategoria.SelectedIndex = producto.IdCat;
-                txtCantidad.Text = producto.Cantidad.ToString();
-                txtPrecio.Text = producto.Precio.ToString();
+                numCantidad.Value = producto.Cantidad;
+                numPrecio.Value = decimal.Parse(producto.Precio.ToString());
             }
             else
             {
                 btnModificar.Enabled = false;
                 btnEliminar.Enabled = false;
             }
+        }
+
+        private void btnAgregarMarca_Click(object sender, EventArgs e)
+        {
+            FormCategoria formCategoria = new();
+            formCategoria.ShowDialog();
+            //MessageBox.Show("GG");
         }
     }
 }

@@ -183,6 +183,16 @@ namespace SdG___Prueba.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CapaTransparente {
+            get {
+                object obj = ResourceManager.GetObject("CapaTransparente", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap equis {
             get {
                 object obj = ResourceManager.GetObject("equis", resourceCulture);
