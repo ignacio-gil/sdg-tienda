@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualBasic.ApplicationServices;
 using MySql.Data.MySqlClient;
-using SdG___Prueba.Clases;
+using SdG___Prueba.Modulos.Productos;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,7 +20,6 @@ namespace SdG___Prueba.Modulos
     {
         private string codProductoSel = "";
         private int opcionElegida = 0;
-        DataGridView dtvProductos2;
 
         public FormProductos()
         {
@@ -29,17 +28,11 @@ namespace SdG___Prueba.Modulos
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            groupBox1.Text = "Nuevo producto";
             dtvProductos.ClearSelection();
             limpiarCajas();
             activarCajas(true);
             opcionElegida = 1;
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            activarCajas(false);
-            limpiarCajas();
-            dtvProductos.ClearSelection();
         }
 
         private void agregarProducto()
@@ -47,11 +40,11 @@ namespace SdG___Prueba.Modulos
             try
             {
                 string codigo = txtCod.Text;
-                int idMarca = cbxMarca.SelectedIndex;
+                int idMarca = buscarMarca(cbxMarca.SelectedItem.ToString());
                 string modelo = txtModelo.Text;
                 int cantidad = Convert.ToInt32(numCantidad.Value);
                 float precio = float.Parse(numPrecio.Value.ToString());
-                int idCategoria = cbxCategoria.SelectedIndex;
+                int idCategoria = buscarCategoria(cbxCategoria.SelectedItem.ToString());
 
                 string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -101,10 +94,15 @@ namespace SdG___Prueba.Modulos
                     {
                         MySqlDataReader reader = command.ExecuteReader();
 
+                        string itemSelected = (cbxMarca.SelectedItem == null) ? "" : cbxMarca.SelectedItem.ToString();
+                        cbxMarca.Items.Clear();
+
                         while (reader.Read())
                         {
                             cbxMarca.Items.Add(reader.GetString("nombreMarca"));
                         }
+
+                        cbxMarca.SelectedItem = itemSelected;
                     }
                 }
             }
@@ -129,10 +127,15 @@ namespace SdG___Prueba.Modulos
                     {
                         MySqlDataReader reader = command.ExecuteReader();
 
+                        string itemSelected = (cbxCategoria.SelectedItem == null) ? "" : cbxCategoria.SelectedItem.ToString();
+                        cbxCategoria.Items.Clear();
+
                         while (reader.Read())
                         {
                             cbxCategoria.Items.Add(reader.GetString("nombreCat"));
                         }
+
+                        cbxMarca.SelectedItem = itemSelected;
                     }
                 }
             }
@@ -144,10 +147,10 @@ namespace SdG___Prueba.Modulos
 
         private void FormProductos_Load(object sender, EventArgs e)
         {
-            crearDtvCopiar();
             cargarMarcas();
             cargarCategorias();
             cargarDtvProductos();
+            cbxBuscarPor.SelectedIndex = 0;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -175,6 +178,7 @@ namespace SdG___Prueba.Modulos
 
         private void activarCajas(bool activar)
         {
+            groupBox1.Visible = activar;
             dtvProductos.Enabled = !activar;
 
             txtCod.Enabled = activar;
@@ -185,11 +189,9 @@ namespace SdG___Prueba.Modulos
             numPrecio.Enabled = activar;
 
             btnAceptar.Visible = activar;
-            btnCancelar.Visible = activar;
 
             btnAgregar.Enabled = !activar;
-            //btnModificar.Enabled = !activar;
-            //btnEliminar.Enabled = !activar;
+            btnCerrarInfo.Visible = activar;
         }
 
         private void limpiarCajas()
@@ -211,27 +213,26 @@ namespace SdG___Prueba.Modulos
                 {
                     connection.Open();
 
-                    string query = "SELECT * FROM producto";
+                    string query = "SELECT p.codProducto, m.nombreMarca,  p.modelo, c.nombreCat, p.cantidadStock, p.precioUnitario " +
+                        "FROM producto AS p INNER JOIN marca AS m ON p.idMarca = m.idMarca " +
+                        "INNER JOIN categoria AS c ON p.idCategoria = c.idCategoria";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         MySqlDataReader reader = command.ExecuteReader();
-
-                        dtvProductos2.Rows.Clear();
 
                         while (reader.Read())
                         {
 
                             string[] row = {
                                 reader.GetString("codProducto"),
-                                reader.GetInt32("idMarca").ToString(),
-                                reader.GetString("modelo"),
+                                reader.GetString("nombreMarca") + " " + reader.GetString("modelo"),
+                                reader.GetString("nombreCat"),
                                 reader.GetInt32("cantidadStock").ToString(),
                                 reader.GetFloat("precioUnitario").ToString()
                             };
 
                             dtvProductos.Rows.Add(row);
-                            dtvProductos2.Rows.Add(row);
                         }
 
                         dtvProductos.ClearSelection();
@@ -251,32 +252,17 @@ namespace SdG___Prueba.Modulos
             cargarDtvProductos();
         }
 
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-
-            if (dtvProductos.SelectedRows.Count > 0)
-            {
-                activarCajas(true);
-                opcionElegida = 2;
-            }
-            else
-            {
-                MessageBox.Show("Seleccione un producto de la lista por favor.");
-            }
-
-        }
-
         private bool modificarProducto()
         {
             try
             {
                 Producto producto = new(
                     txtCod.Text,
-                    cbxMarca.SelectedIndex,
+                    buscarMarca(cbxMarca.SelectedItem.ToString()),
                     txtModelo.Text,
                     Convert.ToInt32(numCantidad.Value),
                     float.Parse(numPrecio.Value.ToString()),
-                    cbxCategoria.SelectedIndex
+                    buscarCategoria(cbxCategoria.SelectedItem.ToString())
                 );
 
                 string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
@@ -357,15 +343,49 @@ namespace SdG___Prueba.Modulos
             }
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            if (dtvProductos.SelectedRows.Count > 0)
+            string columnaABuscar = "";
+            
+            switch (cbxBuscarPor.SelectedIndex)
             {
-                DataGridViewRow filaSeleccionada = dtvProductos.SelectedRows[0];
+                case 0: columnaABuscar = "codProducto"; break;
+                case 1: columnaABuscar = "nombreCat"; break;
+                case 2: columnaABuscar = "nombreMarca"; break;
+                case 3: columnaABuscar = "modelo"; break;
+                default: break;
+            }
+            buscarPor(txtBuscar.Text, columnaABuscar);
+        }
+
+        private void dtvProductos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 6)
+            {
+                //BtnModificar
+                activarCajas(true);
+                opcionElegida = 2;
+
+                DataGridViewRow filaSeleccionada = dtvProductos.CurrentRow;
+                codProductoSel = filaSeleccionada.Cells["Codigo"].Value.ToString();
+                Producto producto = buscarProducto(codProductoSel);
+
+                groupBox1.Text = "Modificar producto";
+                txtCod.Text = producto.Codigo;
+                cbxMarca.SelectedItem = buscarMarcaPorId(producto.IdMarca);
+                txtModelo.Text = producto.Modelo;
+                numCantidad.Value = producto.Cantidad;
+                numPrecio.Value = decimal.Parse(producto.Precio.ToString());
+                cbxCategoria.SelectedItem = buscarCategoriaPorId(producto.IdCat);
+            }
+            else if (e.ColumnIndex == 7)
+            {
+                //BtnBorrar
+                DataGridViewRow filaSeleccionada = dtvProductos.CurrentRow;
                 codProductoSel = filaSeleccionada.Cells["Codigo"].Value.ToString();
 
                 DialogResult resultado = MessageBox.Show(
-                    "Esta acción eliminará el producto seleccionado.\n\n¿Está seguro?",
+                    "Esta acción eliminará el proveedor seleccionado.\n\n¿Está seguro?",
                     "Atención",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
@@ -402,15 +422,214 @@ namespace SdG___Prueba.Modulos
 
                     }
                 }
-
             }
-            else
+            else if (e.ColumnIndex == 5)
             {
-                MessageBox.Show("Seleccione un producto de la lista por favor.");
+                //BtnMasInfo
+                activarCajas(true);
+                btnAceptar.Visible = false;
+                btnConfigMarca.Visible = false;
+                btnConfigCategorias.Visible = false;
+
+                txtCod.ReadOnly = true;
+                cbxMarca.Enabled = false;
+                txtModelo.ReadOnly = true;
+                cbxCategoria.Enabled = false;
+                numCantidad.ReadOnly = true;
+                numPrecio.ReadOnly = true;
+                numCantidad.Increment = 0;
+                numPrecio.Increment = 0;
+
+                DataGridViewRow filaSeleccionada = dtvProductos.CurrentRow;
+                codProductoSel = filaSeleccionada.Cells["Codigo"].Value.ToString();
+                Producto producto = buscarProducto(codProductoSel);
+
+                groupBox1.Text = "Más info";
+                txtCod.Text = producto.Codigo;
+                cbxMarca.SelectedIndex = producto.IdMarca;
+                txtModelo.Text = producto.Modelo;
+                numCantidad.Value = producto.Cantidad;
+                numPrecio.Value = decimal.Parse(producto.Precio.ToString());
+                cbxCategoria.SelectedIndex = producto.IdCat;
             }
         }
 
-        private void buscarEnDtv(string texto)
+        private void btnCerrarInfo_Click(object sender, EventArgs e)
+        {
+            if (opcionElegida == 1 || opcionElegida == 2)
+            {
+                activarCajas(false);
+                limpiarCajas();
+                dtvProductos.ClearSelection();
+            }
+            else
+            {
+                btnConfigMarca.Visible = true;
+                btnConfigCategorias.Visible = true;
+                btnCerrarInfo.Visible = false;
+                btnConfigMarca.Visible = true;
+                activarCajas(false);
+
+                txtCod.ReadOnly = false;
+                cbxMarca.Enabled = true;
+                txtModelo.ReadOnly = false;
+                cbxCategoria.Enabled = true;
+                numCantidad.ReadOnly = false;
+                numPrecio.ReadOnly = false;
+                numCantidad.Increment = 1000;
+                numPrecio.Increment = 1000;
+            }
+
+            opcionElegida = 0;
+        }
+
+        private void btnConfigMarcas_Click(object sender, EventArgs e)
+        {
+            FormMarca formMarca = new();
+            formMarca.ShowDialog();
+            cargarMarcas();
+        }
+
+        private void btnConfigCategorias_Click(object sender, EventArgs e)
+        {
+            FormCategoria formCategoria = new();
+            formCategoria.ShowDialog();
+            cargarCategorias();
+        }
+
+        private int buscarMarca(string marcaElegida)
+        {
+            try
+            {
+                string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT * FROM marca WHERE nombreMarca=@nombreMarca";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@nombreMarca", marcaElegida);
+                        MySqlDataReader reader = command.ExecuteReader();
+                        if (!reader.Read())
+                        {
+                            return -1;
+                        }
+                        else
+                        {
+                            return reader.GetInt32("idMarca");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return -1;
+            }
+        }
+
+        private int buscarCategoria(string categoriaElegida)
+        {
+            try
+            {
+                string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT * FROM categoria WHERE nombreCat=@nombreCat";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@nombreCat", categoriaElegida);
+                        MySqlDataReader reader = command.ExecuteReader();
+                        if (!reader.Read())
+                        {
+                            return -1;
+                        }
+                        else
+                        {
+                            return reader.GetInt32("idCategoria");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return -1;
+            }
+        }
+
+        private string buscarMarcaPorId(int idMarca)
+        {
+            try
+            {
+                string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT * FROM marca WHERE idMarca=@idMarca";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idMarca", idMarca);
+                        MySqlDataReader reader = command.ExecuteReader();
+                        if (!reader.Read())
+                        {
+                            return "";
+                        }
+                        else
+                        {
+                            return reader.GetString("nombreMarca");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return "";
+            }
+        }
+
+        private string buscarCategoriaPorId(int idCat)
+        {
+            try
+            {
+                string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT * FROM categoria WHERE idCategoria=@idCategoria";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idCategoria", idCat);
+                        MySqlDataReader reader = command.ExecuteReader();
+                        if (!reader.Read())
+                        {
+                            return "";
+                        }
+                        else
+                        {
+                            return reader.GetString("nombreCat");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return "";
+            }
+        }
+
+        private void buscarPor(string texto, string item)
         {
             if (texto.Equals(""))
             {
@@ -419,82 +638,50 @@ namespace SdG___Prueba.Modulos
             }
             else
             {
-                List<DataGridViewRow> filas = [];
-
-                for (int i = 0; i < dtvProductos2.RowCount; i++)
+                try
                 {
-                    DataGridViewRow fila = dtvProductos2.Rows[i];
-                    if (fila.Cells["Codigo"].Value.ToString().Contains(texto))
+                    string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
+                    using (MySqlConnection connection = new MySqlConnection(connectionString))
                     {
-                        filas.Add(fila);
+                        connection.Open();
+
+                        string query = "SELECT p.codProducto, m.nombreMarca,  p.modelo, c.nombreCat, p.cantidadStock, p.precioUnitario " +
+                            "FROM producto AS p INNER JOIN marca AS m ON p.idMarca = m.idMarca " +
+                            "INNER JOIN categoria AS c ON p.idCategoria = c.idCategoria " +
+                            "WHERE " + item + " like @texto";
+
+                        using (MySqlCommand command = new MySqlCommand(query, connection))
+                        {
+                            command.Parameters.AddWithValue("@texto", "%" + texto + "%");
+                            MySqlDataReader reader = command.ExecuteReader();
+
+                            dtvProductos.Rows.Clear();
+
+                            while (reader.Read())
+                            {
+
+                                string[] row = {
+                                reader.GetString("codProducto"),
+                                reader.GetString("nombreMarca") + " " + reader.GetString("modelo"),
+                                reader.GetString("nombreCat"),
+                                reader.GetInt32("cantidadStock").ToString(),
+                                reader.GetFloat("precioUnitario").ToString()
+                            };
+
+                                dtvProductos.Rows.Add(row);
+                            }
+
+                            dtvProductos.ClearSelection();
+                            limpiarCajas();
+                        }
                     }
                 }
-
-                dtvProductos.Rows.Clear();
-
-                foreach (DataGridViewRow item in filas)
+                catch (Exception ex)
                 {
-                    string[] row = {
-                                item.Cells["Codigo"].Value.ToString(),
-                                item.Cells["Marca"].Value.ToString(),
-                                item.Cells["Modelo"].Value.ToString(),
-                                item.Cells["Cantidad"].Value.ToString(),
-                                item.Cells["Precio_unitario"].Value.ToString()
-                    };
-
-                    dtvProductos.Rows.Add(row);
+                    MessageBox.Show("Error: " + ex.Message);
                 }
             }
         }
 
-        private void txtBuscar_TextChanged(object sender, EventArgs e)
-        {
-            buscarEnDtv(txtBuscar.Text);
-        }
-
-        private void crearDtvCopiar()
-        {
-            dtvProductos2 = new DataGridView();
-
-            dtvProductos2.AllowUserToAddRows = dtvProductos.AllowUserToAddRows;
-            dtvProductos2.AllowUserToDeleteRows = dtvProductos.AllowUserToDeleteRows;
-
-            foreach (DataGridViewColumn columna in dtvProductos.Columns)
-            {
-                dtvProductos2.Columns.Add(columna.Clone() as DataGridViewColumn);
-            }
-        }
-
-        private void dtvProductos_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dtvProductos.SelectedRows.Count > 0)
-            {
-                btnModificar.Enabled = true;
-                btnEliminar.Enabled = true;
-
-                DataGridViewRow filaSeleccionada = dtvProductos.SelectedRows[0];
-                codProductoSel = filaSeleccionada.Cells["Codigo"].Value.ToString();
-                Producto producto = buscarProducto(codProductoSel);
-
-                txtCod.Text = producto.Codigo;
-                cbxMarca.SelectedIndex = producto.IdMarca;
-                txtModelo.Text = producto.Modelo;
-                cbxCategoria.SelectedIndex = producto.IdCat;
-                numCantidad.Value = producto.Cantidad;
-                numPrecio.Value = decimal.Parse(producto.Precio.ToString());
-            }
-            else
-            {
-                btnModificar.Enabled = false;
-                btnEliminar.Enabled = false;
-            }
-        }
-
-        private void btnAgregarMarca_Click(object sender, EventArgs e)
-        {
-            FormCategoria formCategoria = new();
-            formCategoria.ShowDialog();
-            //MessageBox.Show("GG");
-        }
     }
 }

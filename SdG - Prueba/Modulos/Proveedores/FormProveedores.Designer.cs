@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProveedores));
             tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutSuperior = new TableLayoutPanel();
             lblTitulo = new Label();
@@ -36,15 +37,16 @@
             btnActualizar = new Button();
             txtBuscar = new TextBox();
             labelBuscarPor = new Label();
+            btnAgregar = new Button();
             dtvProveedores = new DataGridView();
             Codigo = new DataGridViewTextBoxColumn();
             RazonSocial = new DataGridViewTextBoxColumn();
             Mail = new DataGridViewTextBoxColumn();
             NroTelefono = new DataGridViewTextBoxColumn();
             Cuil = new DataGridViewTextBoxColumn();
-            btnEliminar = new Button();
-            btnAgregar = new Button();
-            btnModificar = new Button();
+            info = new DataGridViewImageColumn();
+            Editar = new DataGridViewImageColumn();
+            Eliminar = new DataGridViewImageColumn();
             groupBox1 = new GroupBox();
             tableLayoutInferior = new TableLayoutPanel();
             labelCod = new Label();
@@ -59,10 +61,10 @@
             txtDireccion = new TextBox();
             txtTelefono = new TextBox();
             txtRazonSocial = new TextBox();
-            btnCancelar = new Button();
-            btnAceptar = new Button();
             lblPagWeb = new Label();
             txtPagWeb = new TextBox();
+            btnCerrarInfo = new Button();
+            btnAceptar = new Button();
             tableLayoutPanel2 = new TableLayoutPanel();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutSuperior.SuspendLayout();
@@ -85,14 +87,15 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.Padding = new Padding(50, 0, 50, 0);
             tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 432F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(934, 679);
+            tableLayoutPanel1.Size = new Size(934, 696);
             tableLayoutPanel1.TabIndex = 1;
             // 
             // tableLayoutSuperior
             // 
+            tableLayoutSuperior.AutoSize = true;
             tableLayoutSuperior.ColumnCount = 3;
             tableLayoutSuperior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
             tableLayoutSuperior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
@@ -100,9 +103,6 @@
             tableLayoutSuperior.Controls.Add(lblTitulo, 0, 0);
             tableLayoutSuperior.Controls.Add(tableLayoutBuscarPor, 0, 1);
             tableLayoutSuperior.Controls.Add(dtvProveedores, 0, 2);
-            tableLayoutSuperior.Controls.Add(btnEliminar, 2, 3);
-            tableLayoutSuperior.Controls.Add(btnAgregar, 0, 3);
-            tableLayoutSuperior.Controls.Add(btnModificar, 1, 3);
             tableLayoutSuperior.Dock = DockStyle.Fill;
             tableLayoutSuperior.Location = new Point(53, 3);
             tableLayoutSuperior.Name = "tableLayoutSuperior";
@@ -111,7 +111,7 @@
             tableLayoutSuperior.RowStyles.Add(new RowStyle());
             tableLayoutSuperior.RowStyles.Add(new RowStyle());
             tableLayoutSuperior.RowStyles.Add(new RowStyle());
-            tableLayoutSuperior.Size = new Size(853, 426);
+            tableLayoutSuperior.Size = new Size(855, 443);
             tableLayoutSuperior.TabIndex = 0;
             // 
             // lblTitulo
@@ -123,7 +123,7 @@
             lblTitulo.Location = new Point(3, 0);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Padding = new Padding(0, 40, 0, 25);
-            lblTitulo.Size = new Size(847, 95);
+            lblTitulo.Size = new Size(849, 95);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Proveedores";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -141,13 +141,14 @@
             tableLayoutBuscarPor.Controls.Add(btnActualizar, 4, 0);
             tableLayoutBuscarPor.Controls.Add(txtBuscar, 1, 0);
             tableLayoutBuscarPor.Controls.Add(labelBuscarPor, 0, 0);
+            tableLayoutBuscarPor.Controls.Add(btnAgregar, 3, 0);
             tableLayoutBuscarPor.Dock = DockStyle.Fill;
             tableLayoutBuscarPor.Location = new Point(10, 98);
             tableLayoutBuscarPor.Margin = new Padding(10, 3, 3, 3);
             tableLayoutBuscarPor.Name = "tableLayoutBuscarPor";
             tableLayoutBuscarPor.RowCount = 1;
             tableLayoutBuscarPor.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutBuscarPor.Size = new Size(840, 31);
+            tableLayoutBuscarPor.Size = new Size(842, 36);
             tableLayoutBuscarPor.TabIndex = 3;
             // 
             // btnActualizar
@@ -155,10 +156,10 @@
             btnActualizar.Anchor = AnchorStyles.Right;
             btnActualizar.BackgroundImage = Properties.Resources.update;
             btnActualizar.BackgroundImageLayout = ImageLayout.Stretch;
-            btnActualizar.Location = new Point(805, 3);
+            btnActualizar.Location = new Point(802, 3);
             btnActualizar.Margin = new Padding(3, 3, 10, 3);
             btnActualizar.Name = "btnActualizar";
-            btnActualizar.Size = new Size(25, 25);
+            btnActualizar.Size = new Size(30, 30);
             btnActualizar.TabIndex = 2;
             btnActualizar.UseVisualStyleBackColor = true;
             btnActualizar.Click += btnActualizar_Click;
@@ -166,7 +167,7 @@
             // txtBuscar
             // 
             txtBuscar.Anchor = AnchorStyles.Left;
-            txtBuscar.Location = new Point(54, 4);
+            txtBuscar.Location = new Point(54, 6);
             txtBuscar.MaxLength = 20;
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(200, 23);
@@ -177,12 +178,27 @@
             // 
             labelBuscarPor.Anchor = AnchorStyles.Right;
             labelBuscarPor.AutoSize = true;
-            labelBuscarPor.Location = new Point(3, 8);
+            labelBuscarPor.Location = new Point(3, 10);
             labelBuscarPor.Name = "labelBuscarPor";
             labelBuscarPor.Size = new Size(45, 15);
             labelBuscarPor.TabIndex = 0;
             labelBuscarPor.Text = "Buscar:";
             labelBuscarPor.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnAgregar
+            // 
+            btnAgregar.Anchor = AnchorStyles.Right;
+            btnAgregar.AutoSize = true;
+            btnAgregar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAgregar.Image = Properties.Resources.plus;
+            btnAgregar.Location = new Point(645, 3);
+            btnAgregar.Name = "btnAgregar";
+            btnAgregar.Size = new Size(150, 30);
+            btnAgregar.TabIndex = 7;
+            btnAgregar.Text = "Nuevo proveedor";
+            btnAgregar.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAgregar.UseVisualStyleBackColor = true;
+            btnAgregar.Click += btnAgregar_Click;
             // 
             // dtvProveedores
             // 
@@ -201,23 +217,24 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dtvProveedores.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtvProveedores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtvProveedores.Columns.AddRange(new DataGridViewColumn[] { Codigo, RazonSocial, Mail, NroTelefono, Cuil });
+            dtvProveedores.Columns.AddRange(new DataGridViewColumn[] { Codigo, RazonSocial, Mail, NroTelefono, Cuil, info, Editar, Eliminar });
             tableLayoutSuperior.SetColumnSpan(dtvProveedores, 3);
-            dtvProveedores.Location = new Point(10, 135);
+            dtvProveedores.Location = new Point(10, 140);
             dtvProveedores.Margin = new Padding(10, 3, 10, 3);
             dtvProveedores.MultiSelect = false;
             dtvProveedores.Name = "dtvProveedores";
             dtvProveedores.ReadOnly = true;
             dtvProveedores.RowHeadersVisible = false;
             dtvProveedores.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtvProveedores.Size = new Size(833, 250);
+            dtvProveedores.Size = new Size(835, 300);
             dtvProveedores.TabIndex = 4;
+            dtvProveedores.CellClick += dtvProveedores_CellClick;
             dtvProveedores.SelectionChanged += dtvProveedores_SelectionChanged;
             // 
             // Codigo
             // 
             Codigo.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Codigo.FillWeight = 50F;
+            Codigo.FillWeight = 57.86052F;
             Codigo.HeaderText = "Código";
             Codigo.Name = "Codigo";
             Codigo.ReadOnly = true;
@@ -225,6 +242,7 @@
             // RazonSocial
             // 
             RazonSocial.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            RazonSocial.FillWeight = 115.721039F;
             RazonSocial.HeaderText = "Razon Social";
             RazonSocial.Name = "RazonSocial";
             RazonSocial.ReadOnly = true;
@@ -232,6 +250,7 @@
             // Mail
             // 
             Mail.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Mail.FillWeight = 115.721039F;
             Mail.HeaderText = "Mail";
             Mail.Name = "Mail";
             Mail.ReadOnly = true;
@@ -239,6 +258,7 @@
             // NroTelefono
             // 
             NroTelefono.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            NroTelefono.FillWeight = 115.721039F;
             NroTelefono.HeaderText = "N° Telefono";
             NroTelefono.Name = "NroTelefono";
             NroTelefono.ReadOnly = true;
@@ -246,60 +266,56 @@
             // Cuil
             // 
             Cuil.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Cuil.FillWeight = 115.721039F;
             Cuil.HeaderText = "C.U.I.L";
             Cuil.Name = "Cuil";
             Cuil.ReadOnly = true;
             // 
-            // btnEliminar
+            // info
             // 
-            btnEliminar.Anchor = AnchorStyles.None;
-            btnEliminar.AutoSize = true;
-            btnEliminar.Font = new Font("Segoe UI", 12F);
-            btnEliminar.Location = new Point(672, 392);
-            btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(77, 31);
-            btnEliminar.TabIndex = 5;
-            btnEliminar.Text = "Eliminar";
-            btnEliminar.UseVisualStyleBackColor = true;
-            btnEliminar.Click += btnEliminar_Click;
+            info.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            info.FillWeight = 29.25532F;
+            info.HeaderText = "+Info";
+            info.Image = Properties.Resources.info;
+            info.Name = "info";
+            info.ReadOnly = true;
+            info.Resizable = DataGridViewTriState.True;
+            info.SortMode = DataGridViewColumnSortMode.Automatic;
+            info.Width = 40;
             // 
-            // btnAgregar
+            // Editar
             // 
-            btnAgregar.Anchor = AnchorStyles.None;
-            btnAgregar.AutoSize = true;
-            btnAgregar.Font = new Font("Segoe UI", 12F);
-            btnAgregar.Location = new Point(104, 392);
-            btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(76, 31);
-            btnAgregar.TabIndex = 7;
-            btnAgregar.Text = "Agregar";
-            btnAgregar.UseVisualStyleBackColor = true;
-            btnAgregar.Click += btnAgregar_Click;
+            Editar.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Editar.HeaderText = "Editar";
+            Editar.Image = Properties.Resources.edit;
+            Editar.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            Editar.Name = "Editar";
+            Editar.ReadOnly = true;
+            Editar.Resizable = DataGridViewTriState.True;
+            Editar.Width = 40;
             // 
-            // btnModificar
+            // Eliminar
             // 
-            btnModificar.Anchor = AnchorStyles.None;
-            btnModificar.AutoSize = true;
-            btnModificar.Font = new Font("Segoe UI", 12F);
-            btnModificar.Location = new Point(383, 391);
-            btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(86, 33);
-            btnModificar.TabIndex = 6;
-            btnModificar.Text = "Modificar";
-            btnModificar.UseVisualStyleBackColor = true;
-            btnModificar.Click += btnModificar_Click;
+            Eliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Eliminar.HeaderText = "Borrar";
+            Eliminar.Image = (Image)resources.GetObject("Eliminar.Image");
+            Eliminar.Name = "Eliminar";
+            Eliminar.ReadOnly = true;
+            Eliminar.Resizable = DataGridViewTriState.True;
+            Eliminar.Width = 40;
             // 
             // groupBox1
             // 
             groupBox1.Controls.Add(tableLayoutInferior);
             groupBox1.Dock = DockStyle.Fill;
-            groupBox1.Location = new Point(53, 435);
+            groupBox1.Location = new Point(53, 452);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(10);
-            groupBox1.Size = new Size(853, 241);
+            groupBox1.Size = new Size(855, 241);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Detalle Proveedor";
+            groupBox1.Visible = false;
             // 
             // tableLayoutInferior
             // 
@@ -322,10 +338,10 @@
             tableLayoutInferior.Controls.Add(txtDireccion, 4, 2);
             tableLayoutInferior.Controls.Add(txtTelefono, 4, 1);
             tableLayoutInferior.Controls.Add(txtRazonSocial, 4, 0);
-            tableLayoutInferior.Controls.Add(btnCancelar, 4, 4);
-            tableLayoutInferior.Controls.Add(btnAceptar, 1, 4);
             tableLayoutInferior.Controls.Add(lblPagWeb, 0, 3);
             tableLayoutInferior.Controls.Add(txtPagWeb, 1, 3);
+            tableLayoutInferior.Controls.Add(btnCerrarInfo, 5, 0);
+            tableLayoutInferior.Controls.Add(btnAceptar, 0, 4);
             tableLayoutInferior.Dock = DockStyle.Fill;
             tableLayoutInferior.Location = new Point(10, 26);
             tableLayoutInferior.Name = "tableLayoutInferior";
@@ -335,7 +351,7 @@
             tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutInferior.RowStyles.Add(new RowStyle());
-            tableLayoutInferior.Size = new Size(833, 205);
+            tableLayoutInferior.Size = new Size(835, 205);
             tableLayoutInferior.TabIndex = 0;
             // 
             // labelCod
@@ -343,7 +359,7 @@
             labelCod.Anchor = AnchorStyles.Right;
             labelCod.AutoSize = true;
             labelCod.Font = new Font("Segoe UI", 12F);
-            labelCod.Location = new Point(114, 10);
+            labelCod.Location = new Point(115, 10);
             labelCod.Name = "labelCod";
             labelCod.Size = new Size(60, 21);
             labelCod.TabIndex = 0;
@@ -353,7 +369,7 @@
             // 
             txtCod.Anchor = AnchorStyles.Left;
             txtCod.Enabled = false;
-            txtCod.Location = new Point(180, 9);
+            txtCod.Location = new Point(181, 9);
             txtCod.Name = "txtCod";
             txtCod.ShortcutsEnabled = false;
             txtCod.Size = new Size(130, 23);
@@ -364,7 +380,7 @@
             lblRazonSocial.Anchor = AnchorStyles.Right;
             lblRazonSocial.AutoSize = true;
             lblRazonSocial.Font = new Font("Segoe UI", 12F);
-            lblRazonSocial.Location = new Point(416, 10);
+            lblRazonSocial.Location = new Point(417, 10);
             lblRazonSocial.Name = "lblRazonSocial";
             lblRazonSocial.Size = new Size(101, 21);
             lblRazonSocial.TabIndex = 2;
@@ -375,7 +391,7 @@
             lblMail.Anchor = AnchorStyles.Right;
             lblMail.AutoSize = true;
             lblMail.Font = new Font("Segoe UI", 12F);
-            lblMail.Location = new Point(134, 52);
+            lblMail.Location = new Point(135, 52);
             lblMail.Name = "lblMail";
             lblMail.Size = new Size(40, 21);
             lblMail.TabIndex = 4;
@@ -385,7 +401,7 @@
             // 
             txtMail.Anchor = AnchorStyles.Left;
             txtMail.Enabled = false;
-            txtMail.Location = new Point(180, 51);
+            txtMail.Location = new Point(181, 51);
             txtMail.Name = "txtMail";
             txtMail.Size = new Size(130, 23);
             txtMail.TabIndex = 5;
@@ -395,7 +411,7 @@
             lblTelefono.Anchor = AnchorStyles.Right;
             lblTelefono.AutoSize = true;
             lblTelefono.Font = new Font("Segoe UI", 12F);
-            lblTelefono.Location = new Point(424, 52);
+            lblTelefono.Location = new Point(425, 52);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(93, 21);
             lblTelefono.TabIndex = 6;
@@ -406,7 +422,7 @@
             lblCuil.Anchor = AnchorStyles.Right;
             lblCuil.AutoSize = true;
             lblCuil.Font = new Font("Segoe UI", 12F);
-            lblCuil.Location = new Point(119, 94);
+            lblCuil.Location = new Point(120, 94);
             lblCuil.Name = "lblCuil";
             lblCuil.Size = new Size(55, 21);
             lblCuil.TabIndex = 8;
@@ -417,7 +433,7 @@
             lblDireccion.Anchor = AnchorStyles.Right;
             lblDireccion.AutoSize = true;
             lblDireccion.Font = new Font("Segoe UI", 12F);
-            lblDireccion.Location = new Point(439, 94);
+            lblDireccion.Location = new Point(440, 94);
             lblDireccion.Name = "lblDireccion";
             lblDireccion.Size = new Size(78, 21);
             lblDireccion.TabIndex = 10;
@@ -427,7 +443,7 @@
             // 
             txtCuil.Anchor = AnchorStyles.Left;
             txtCuil.Enabled = false;
-            txtCuil.Location = new Point(180, 93);
+            txtCuil.Location = new Point(181, 93);
             txtCuil.Name = "txtCuil";
             txtCuil.Size = new Size(130, 23);
             txtCuil.TabIndex = 18;
@@ -436,7 +452,7 @@
             // 
             txtDireccion.Anchor = AnchorStyles.Left;
             txtDireccion.Enabled = false;
-            txtDireccion.Location = new Point(523, 93);
+            txtDireccion.Location = new Point(524, 93);
             txtDireccion.Name = "txtDireccion";
             txtDireccion.Size = new Size(130, 23);
             txtDireccion.TabIndex = 19;
@@ -445,7 +461,7 @@
             // 
             txtTelefono.Anchor = AnchorStyles.Left;
             txtTelefono.Enabled = false;
-            txtTelefono.Location = new Point(523, 51);
+            txtTelefono.Location = new Point(524, 51);
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(130, 23);
             txtTelefono.TabIndex = 20;
@@ -454,45 +470,17 @@
             // 
             txtRazonSocial.Anchor = AnchorStyles.Left;
             txtRazonSocial.Enabled = false;
-            txtRazonSocial.Location = new Point(523, 9);
+            txtRazonSocial.Location = new Point(524, 9);
             txtRazonSocial.Name = "txtRazonSocial";
             txtRazonSocial.Size = new Size(130, 23);
             txtRazonSocial.TabIndex = 21;
-            // 
-            // btnCancelar
-            // 
-            btnCancelar.Anchor = AnchorStyles.None;
-            btnCancelar.AutoSize = true;
-            btnCancelar.Font = new Font("Segoe UI", 12F);
-            btnCancelar.Location = new Point(548, 171);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(80, 31);
-            btnCancelar.TabIndex = 13;
-            btnCancelar.Text = "Cancelar";
-            btnCancelar.UseVisualStyleBackColor = true;
-            btnCancelar.Visible = false;
-            btnCancelar.Click += btnCancelar_Click;
-            // 
-            // btnAceptar
-            // 
-            btnAceptar.Anchor = AnchorStyles.None;
-            btnAceptar.AutoSize = true;
-            btnAceptar.Font = new Font("Segoe UI", 12F);
-            btnAceptar.Location = new Point(208, 171);
-            btnAceptar.Name = "btnAceptar";
-            btnAceptar.Size = new Size(73, 31);
-            btnAceptar.TabIndex = 12;
-            btnAceptar.Text = "Aceptar";
-            btnAceptar.UseVisualStyleBackColor = true;
-            btnAceptar.Visible = false;
-            btnAceptar.Click += btnAceptar_Click;
             // 
             // lblPagWeb
             // 
             lblPagWeb.Anchor = AnchorStyles.Right;
             lblPagWeb.AutoSize = true;
             lblPagWeb.Font = new Font("Segoe UI", 12F);
-            lblPagWeb.Location = new Point(97, 136);
+            lblPagWeb.Location = new Point(98, 136);
             lblPagWeb.Name = "lblPagWeb";
             lblPagWeb.Size = new Size(77, 21);
             lblPagWeb.TabIndex = 22;
@@ -502,17 +490,49 @@
             // 
             txtPagWeb.Anchor = AnchorStyles.Left;
             txtPagWeb.Enabled = false;
-            txtPagWeb.Location = new Point(180, 135);
+            txtPagWeb.Location = new Point(181, 135);
             txtPagWeb.Name = "txtPagWeb";
             txtPagWeb.Size = new Size(130, 23);
             txtPagWeb.TabIndex = 23;
             // 
+            // btnCerrarInfo
+            // 
+            btnCerrarInfo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCerrarInfo.BackgroundImage = Properties.Resources.equis;
+            btnCerrarInfo.BackgroundImageLayout = ImageLayout.Stretch;
+            btnCerrarInfo.FlatAppearance.BorderSize = 0;
+            btnCerrarInfo.FlatStyle = FlatStyle.Flat;
+            btnCerrarInfo.Location = new Point(807, 3);
+            btnCerrarInfo.Name = "btnCerrarInfo";
+            btnCerrarInfo.Size = new Size(25, 25);
+            btnCerrarInfo.TabIndex = 24;
+            btnCerrarInfo.UseVisualStyleBackColor = true;
+            btnCerrarInfo.Visible = false;
+            btnCerrarInfo.Click += btnCerrarInfo_Click;
+            // 
+            // btnAceptar
+            // 
+            btnAceptar.Anchor = AnchorStyles.None;
+            btnAceptar.AutoSize = true;
+            tableLayoutInferior.SetColumnSpan(btnAceptar, 6);
+            btnAceptar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAceptar.Image = Properties.Resources.check;
+            btnAceptar.Location = new Point(369, 171);
+            btnAceptar.Name = "btnAceptar";
+            btnAceptar.Size = new Size(97, 31);
+            btnAceptar.TabIndex = 12;
+            btnAceptar.Text = "Aceptar";
+            btnAceptar.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAceptar.UseVisualStyleBackColor = true;
+            btnAceptar.Visible = false;
+            btnAceptar.Click += btnAceptar_Click;
+            // 
             // tableLayoutPanel2
             // 
+            tableLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel2.ColumnCount = 1;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.Controls.Add(tableLayoutPanel1, 0, 0);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(0, 0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
@@ -534,6 +554,7 @@
             WindowState = FormWindowState.Maximized;
             Load += FormProveedores_Load;
             tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             tableLayoutSuperior.ResumeLayout(false);
             tableLayoutSuperior.PerformLayout();
             tableLayoutBuscarPor.ResumeLayout(false);
@@ -557,9 +578,7 @@
         private TextBox txtBuscar;
         private Label labelBuscarPor;
         private DataGridView dtvProveedores;
-        private Button btnEliminar;
         private Button btnAgregar;
-        private Button btnModificar;
         private GroupBox groupBox1;
         private TableLayoutPanel tableLayoutInferior;
         private Label labelCod;
@@ -571,7 +590,6 @@
         private Label lblCuil;
         private Label lblDireccion;
         private Button btnAceptar;
-        private Button btnCancelar;
         private TableLayoutPanel tableLayoutPanel2;
         private TextBox txtCuil;
         private TextBox txtDireccion;
@@ -584,5 +602,9 @@
         private DataGridViewTextBoxColumn Mail;
         private DataGridViewTextBoxColumn NroTelefono;
         private DataGridViewTextBoxColumn Cuil;
+        private DataGridViewImageColumn info;
+        private DataGridViewImageColumn Editar;
+        private DataGridViewImageColumn Eliminar;
+        private Button btnCerrarInfo;
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SdG___Prueba.Clases
+namespace SdG___Prueba.Modulos.Productos
 {
     public class Producto(string codigo, int idMarca, string modelo, int cantidad, float precio, int idCat)
     {
@@ -14,11 +14,6 @@ namespace SdG___Prueba.Clases
         public int Cantidad { get; set; } = cantidad;
         public float Precio { get; set; } = precio;
         public int IdCat { get; set; } = idCat;
-
-        public string MostrarDescripcion()
-        {
-            return $"El código del producto es: {Codigo}";
-        }
 
     }
 }

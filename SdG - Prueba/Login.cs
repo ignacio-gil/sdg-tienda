@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using SdG___Prueba.Modulos.Personal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace SdG___Prueba
 {
     public partial class Login : Form
     {
+        private Personal personalIngresado;
         public Login()
         {
             InitializeComponent();
@@ -27,31 +29,38 @@ namespace SdG___Prueba
                 string user = txtUsuario.Text;
                 string password = txtPassword.Text;
 
-                //Usuario nuevaUsuario = new Usuario(nombre,clave);
-
-                string connectionString = "Server=localhost;Database=pruebitalogin;Uid=root;Pwd=";
+                string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    string query = "SELECT nombre, clave FROM usuario WHERE nombre = @user AND clave = @password";
+                    string query = "SELECT * FROM personal WHERE dni=@user AND claveAcceso=@password";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@user", user);
                         command.Parameters.AddWithValue("@password", password);
 
-                        if (command.ExecuteScalar() == null)
+                        MySqlDataReader reader = command.ExecuteReader();
+
+                        if (!reader.Read())
                         {
                             MessageBox.Show("Nombre de usuario y/o contraseña incorrecto.");
-
                         }
                         else
                         {
+                            personalIngresado = new(
+                                reader.GetInt32("idPersonal"), 
+                                reader.GetString("nombre"),
+                                reader.GetString("apellido"), 
+                                reader.GetInt32("idRol")
+                            );
+
                             iniciarFormulario();
                             txtUsuario.Clear();
                             txtPassword.Clear();
                             this.Visible = false;
+                            reader.GetString("nombreRol");
                         }
                     }
                 }
@@ -63,10 +72,11 @@ namespace SdG___Prueba
         }
 
         private void iniciarFormulario()
-        {   
-            //FormAdmin formAdmin = new FormAdmin(this);
-            //FormPrincipal form = new FormPrincipal(this);
-            //formAdmin.Visible = true;
+        {
+            FormPrincipal form = new(personalIngresado);
+            this.Visible = false;
+            form.ShowDialog();
+            this.Close();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

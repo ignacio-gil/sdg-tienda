@@ -1,5 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using SdG___Prueba.Clases;
+using SdG___Prueba.Modulos.Proveedores;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +25,7 @@ namespace SdG___Prueba.Modulos
 
         private void activarCajas(bool activar)
         {
+            groupBox1.Visible = activar;
             dtvProveedores.Enabled = !activar;
 
             //txtCod.Enabled = activar;
@@ -36,8 +37,7 @@ namespace SdG___Prueba.Modulos
             txtPagWeb.Enabled = activar;
 
             btnAceptar.Visible = activar;
-            btnCancelar.Visible = activar;
-
+            btnCerrarInfo.Visible = activar;
             btnAgregar.Enabled = !activar;
         }
 
@@ -55,17 +55,11 @@ namespace SdG___Prueba.Modulos
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            groupBox1.Text = "Nuevo proveedor";
             dtvProveedores.ClearSelection();
             limpiarCajas();
             activarCajas(true);
             opcionElegida = 1;
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            activarCajas(false);
-            limpiarCajas();
-            dtvProveedores.ClearSelection();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -194,6 +188,7 @@ namespace SdG___Prueba.Modulos
 
         private void dtvProveedores_SelectionChanged(object sender, EventArgs e)
         {
+            /*
             if (dtvProveedores.SelectedRows.Count > 0)
             {
                 btnModificar.Enabled = true;
@@ -216,6 +211,7 @@ namespace SdG___Prueba.Modulos
                 btnModificar.Enabled = false;
                 btnEliminar.Enabled = false;
             }
+            */
         }
 
         private Proveedor buscarProveedor(string idProveedor)
@@ -257,19 +253,6 @@ namespace SdG___Prueba.Modulos
             {
                 MessageBox.Show("Error: " + ex.Message);
                 return null;
-            }
-        }
-
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-            if (dtvProveedores.SelectedRows.Count > 0)
-            {
-                activarCajas(true);
-                opcionElegida = 2;
-            }
-            else
-            {
-                MessageBox.Show("Seleccione un producto de la lista por favor.");
             }
         }
 
@@ -323,59 +306,6 @@ namespace SdG___Prueba.Modulos
             }
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            if (dtvProveedores.SelectedRows.Count > 0)
-            {
-                DataGridViewRow filaSeleccionada = dtvProveedores.SelectedRows[0];
-                codProvSel = filaSeleccionada.Cells["Codigo"].Value.ToString();
-
-                DialogResult resultado = MessageBox.Show(
-                    "Esta acción eliminará el producto seleccionado.\n\n¿Está seguro?",
-                    "Atención",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                 );
-
-                if (resultado == DialogResult.Yes)
-                {
-                    try
-                    {
-
-                        string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
-                        using (MySqlConnection connection = new MySqlConnection(connectionString))
-                        {
-                            connection.Open();
-
-                            string query = "DELETE FROM proveedor WHERE idProveedor=@idProv";
-
-                            using (MySqlCommand command = new MySqlCommand(query, connection))
-                            {
-                                command.Parameters.AddWithValue("@idProv", codProvSel);
-
-                                if (command.ExecuteNonQuery() != -1)
-                                {
-                                    dtvProveedores.Rows.Clear();
-                                    cargarDtvProveedores();
-                                    codProvSel = "";
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message);
-
-                    }
-                }
-
-            }
-            else
-            {
-                MessageBox.Show("Seleccione un producto de la lista por favor.");
-            }
-        }
-
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             dtvProveedores.Rows.Clear();
@@ -423,6 +353,123 @@ namespace SdG___Prueba.Modulos
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             buscarEnDtv(txtBuscar.Text);
+        }
+
+        private void dtvProveedores_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 6)
+            {
+                //BtnModificar
+                activarCajas(true);
+                opcionElegida = 2;
+
+                DataGridViewRow filaSeleccionada = dtvProveedores.CurrentRow;
+                codProvSel = filaSeleccionada.Cells["Codigo"].Value.ToString();
+                Proveedor proveedor = buscarProveedor(codProvSel);
+
+                groupBox1.Text = "Modificar proveedor";
+                txtCod.Text = proveedor.id;
+                txtRazonSocial.Text = proveedor.razonSocial;
+                txtMail.Text = proveedor.mail;
+                txtTelefono.Text = proveedor.telefono;
+                txtCuil.Text = proveedor.cuil;
+                txtDireccion.Text = proveedor.direccion;
+                txtPagWeb.Text = proveedor.pagWeb;
+            }
+            else if (e.ColumnIndex == 7)
+            {
+                //BtnBorrar
+                DataGridViewRow filaSeleccionada = dtvProveedores.CurrentRow;
+                codProvSel = filaSeleccionada.Cells["Codigo"].Value.ToString();
+
+                DialogResult resultado = MessageBox.Show(
+                    "Esta acción eliminará el proveedor seleccionado.\n\n¿Está seguro?",
+                    "Atención",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                 );
+
+                if (resultado == DialogResult.Yes)
+                {
+                    try
+                    {
+
+                        string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
+                        using (MySqlConnection connection = new MySqlConnection(connectionString))
+                        {
+                            connection.Open();
+
+                            string query = "DELETE FROM proveedor WHERE idProveedor=@idProv";
+
+                            using (MySqlCommand command = new MySqlCommand(query, connection))
+                            {
+                                command.Parameters.AddWithValue("@idProv", codProvSel);
+
+                                if (command.ExecuteNonQuery() != -1)
+                                {
+                                    dtvProveedores.Rows.Clear();
+                                    cargarDtvProveedores();
+                                    codProvSel = "";
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+
+                    }
+                }
+            }
+            else if (e.ColumnIndex == 5)
+            {
+                activarCajas(true);
+
+                btnAceptar.Visible = false;
+                btnCerrarInfo.Visible = true;
+
+                txtRazonSocial.ReadOnly = true;
+                txtMail.ReadOnly = true;
+                txtTelefono.ReadOnly = true;
+                txtCuil.ReadOnly = true;
+                txtDireccion.ReadOnly = true;
+                txtPagWeb.ReadOnly = true;
+
+                DataGridViewRow filaSeleccionada = dtvProveedores.CurrentRow;
+                codProvSel = filaSeleccionada.Cells["Codigo"].Value.ToString();
+                Proveedor proveedor = buscarProveedor(codProvSel);
+
+                groupBox1.Text = "Más info";
+                txtCod.Text = proveedor.id;
+                txtRazonSocial.Text = proveedor.razonSocial;
+                txtMail.Text = proveedor.mail;
+                txtTelefono.Text = proveedor.telefono;
+                txtCuil.Text = proveedor.cuil;
+                txtDireccion.Text = proveedor.direccion;
+                txtPagWeb.Text = proveedor.pagWeb;
+
+            }
+        }
+
+        private void btnCerrarInfo_Click(object sender, EventArgs e)
+        {
+            if(opcionElegida == 1 || opcionElegida == 2)
+            {
+                activarCajas(false);
+                limpiarCajas();
+                dtvProveedores.ClearSelection();
+            } else
+            {
+                btnCerrarInfo.Visible = false;
+                activarCajas(false);
+                txtRazonSocial.ReadOnly = false;
+                txtMail.ReadOnly = false;
+                txtTelefono.ReadOnly = false;
+                txtCuil.ReadOnly = false;
+                txtDireccion.ReadOnly = false;
+                txtPagWeb.ReadOnly = false;
+            }
+            opcionElegida = 0;
         }
     }
 }

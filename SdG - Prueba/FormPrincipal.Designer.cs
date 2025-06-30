@@ -28,18 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
             lblFullName = new Label();
             lblRol = new Label();
             menuStrip1 = new MenuStrip();
             itemHome = new ToolStripMenuItem();
+            ItemVentas = new ToolStripMenuItem();
             ItemProductos = new ToolStripMenuItem();
             ItemClientes = new ToolStripMenuItem();
             ItemProveedores = new ToolStripMenuItem();
-            ItemCompras = new ToolStripMenuItem();
-            ItemVentas = new ToolStripMenuItem();
-            ItemCaja = new ToolStripMenuItem();
             menuStrip2 = new MenuStrip();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -111,12 +110,12 @@
             // 
             menuStrip1.BackColor = Color.Transparent;
             menuStrip1.Font = new Font("Segoe UI", 12F);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { itemHome, ItemProductos, ItemClientes, ItemProveedores, ItemCompras, ItemVentas, ItemCaja });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { itemHome, ItemVentas, ItemProductos, ItemClientes, ItemProveedores });
             menuStrip1.LayoutStyle = ToolStripLayoutStyle.Table;
             menuStrip1.Location = new Point(0, 110);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(0);
-            menuStrip1.Size = new Size(205, 316);
+            menuStrip1.Size = new Size(205, 180);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -130,6 +129,17 @@
             itemHome.Size = new Size(200, 45);
             itemHome.Text = "HOME";
             itemHome.Click += itemHome_Click;
+            // 
+            // ItemVentas
+            // 
+            ItemVentas.Alignment = ToolStripItemAlignment.Right;
+            ItemVentas.AutoSize = false;
+            ItemVentas.ForeColor = Color.White;
+            ItemVentas.Name = "ItemVentas";
+            ItemVentas.Padding = new Padding(0);
+            ItemVentas.Size = new Size(200, 45);
+            ItemVentas.Text = "Ventas*";
+            ItemVentas.Click += ItemVentas_Click;
             // 
             // ItemProductos
             // 
@@ -151,6 +161,7 @@
             ItemClientes.Padding = new Padding(0);
             ItemClientes.Size = new Size(200, 45);
             ItemClientes.Text = "Clientes";
+            ItemClientes.Visible = false;
             // 
             // ItemProveedores
             // 
@@ -162,37 +173,6 @@
             ItemProveedores.Size = new Size(200, 45);
             ItemProveedores.Text = "Proveedores";
             ItemProveedores.Click += ItemProveedores_Click;
-            // 
-            // ItemCompras
-            // 
-            ItemCompras.Alignment = ToolStripItemAlignment.Right;
-            ItemCompras.AutoSize = false;
-            ItemCompras.ForeColor = Color.White;
-            ItemCompras.Name = "ItemCompras";
-            ItemCompras.Padding = new Padding(0);
-            ItemCompras.Size = new Size(200, 45);
-            ItemCompras.Text = "Compras";
-            // 
-            // ItemVentas
-            // 
-            ItemVentas.Alignment = ToolStripItemAlignment.Right;
-            ItemVentas.AutoSize = false;
-            ItemVentas.ForeColor = Color.White;
-            ItemVentas.Name = "ItemVentas";
-            ItemVentas.Padding = new Padding(0);
-            ItemVentas.Size = new Size(200, 45);
-            ItemVentas.Text = "Ventas";
-            ItemVentas.Click += ItemVentas_Click;
-            // 
-            // ItemCaja
-            // 
-            ItemCaja.Alignment = ToolStripItemAlignment.Right;
-            ItemCaja.AutoSize = false;
-            ItemCaja.ForeColor = Color.White;
-            ItemCaja.Name = "ItemCaja";
-            ItemCaja.Padding = new Padding(0);
-            ItemCaja.Size = new Size(200, 45);
-            ItemCaja.Text = "Caja";
             // 
             // menuStrip2
             // 
@@ -211,9 +191,11 @@
             ClientSize = new Size(800, 450);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(menuStrip2);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip2;
+            MaximizeBox = false;
             Name = "FormPrincipal";
-            Text = "Form2";
+            Text = "SdG - Tienda";
             TransparencyKey = Color.Salmon;
             WindowState = FormWindowState.Maximized;
             Load += FormPrincipal_Load;
@@ -236,9 +218,7 @@
         private ToolStripMenuItem ItemProductos;
         private ToolStripMenuItem ItemClientes;
         private ToolStripMenuItem ItemProveedores;
-        private ToolStripMenuItem ItemCompras;
         private ToolStripMenuItem ItemVentas;
-        private ToolStripMenuItem ItemCaja;
         private ToolStripMenuItem itemHome;
         private MenuStrip menuStrip2;
     }

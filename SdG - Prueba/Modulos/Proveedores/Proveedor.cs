@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SdG___Prueba.Clases
+namespace SdG___Prueba.Modulos.Proveedores
 {
     public class Proveedor(string id, string razonSocial, string mail, string telefono, string cuil, string direccion, string pagWeb)
     {
