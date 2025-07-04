@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SdG___Prueba.Modulos.Cliente
+namespace SdG___Prueba.Clases
 {
-    public class Cliente
+    public class Persona
     {
-        public int IdCliente { get; set; }
+        public int Id { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Dni { get; set; }
@@ -16,14 +16,15 @@ namespace SdG___Prueba.Modulos.Cliente
         public string NroTelefono { get; set; }
         public string Mail { get; set; }
         public string Direccion { get; set; }
-        public int IdLocalidad { get; set; }
+        public string Localidad { get; set; }
+        public int IdProvincia { get; set; }
 
-        public Cliente(int idCliente, string nombre,
+        public Persona(int id, string nombre,
                           string apellido, string dni,
                           DateTime fechaNacimiento, string nroTelefono,
-                          string mail, string direccion, int idLocalidad)
+                          string mail, string direccion, string localidad, int idProvincia)
         {
-            IdCliente = idCliente;
+            Id = id;
             Nombre = nombre;
             Apellido = apellido;
             Dni = dni;
@@ -31,8 +32,15 @@ namespace SdG___Prueba.Modulos.Cliente
             NroTelefono = nroTelefono;
             Mail = mail;
             Direccion = direccion;
-            IdLocalidad = idLocalidad;
+            Localidad = localidad;
+            IdProvincia = idProvincia;
         }
 
+        public Persona(int id, string nombre, string apellido)
+        {
+            Id = id;
+            Nombre = nombre;
+            Apellido = apellido;
+        }
     }
 }

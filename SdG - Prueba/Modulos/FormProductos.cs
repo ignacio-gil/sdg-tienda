@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic.ApplicationServices;
 using MySql.Data.MySqlClient;
+using SdG___Prueba.Clases;
 using SdG___Prueba.Modulos.Productos;
 using System;
 using System.Collections;

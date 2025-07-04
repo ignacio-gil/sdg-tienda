@@ -56,15 +56,19 @@
             txtMail = new TextBox();
             lblTelefono = new Label();
             lblCuil = new Label();
-            lblDireccion = new Label();
             txtCuil = new TextBox();
-            txtDireccion = new TextBox();
             txtTelefono = new TextBox();
             txtRazonSocial = new TextBox();
-            lblPagWeb = new Label();
-            txtPagWeb = new TextBox();
             btnCerrarInfo = new Button();
             btnAceptar = new Button();
+            lblPagWeb = new Label();
+            txtPagWeb = new TextBox();
+            lblProvincia = new Label();
+            cbxProvincias = new ComboBox();
+            lblLocalidad = new Label();
+            txtLocalidad = new TextBox();
+            lblDireccion = new Label();
+            txtDireccion = new TextBox();
             tableLayoutPanel2 = new TableLayoutPanel();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutSuperior.SuspendLayout();
@@ -333,23 +337,28 @@
             tableLayoutInferior.Controls.Add(txtMail, 1, 1);
             tableLayoutInferior.Controls.Add(lblTelefono, 3, 1);
             tableLayoutInferior.Controls.Add(lblCuil, 0, 2);
-            tableLayoutInferior.Controls.Add(lblDireccion, 3, 2);
             tableLayoutInferior.Controls.Add(txtCuil, 1, 2);
-            tableLayoutInferior.Controls.Add(txtDireccion, 4, 2);
             tableLayoutInferior.Controls.Add(txtTelefono, 4, 1);
             tableLayoutInferior.Controls.Add(txtRazonSocial, 4, 0);
-            tableLayoutInferior.Controls.Add(lblPagWeb, 0, 3);
-            tableLayoutInferior.Controls.Add(txtPagWeb, 1, 3);
             tableLayoutInferior.Controls.Add(btnCerrarInfo, 5, 0);
-            tableLayoutInferior.Controls.Add(btnAceptar, 0, 4);
+            tableLayoutInferior.Controls.Add(btnAceptar, 0, 5);
+            tableLayoutInferior.Controls.Add(lblPagWeb, 3, 2);
+            tableLayoutInferior.Controls.Add(txtPagWeb, 4, 2);
+            tableLayoutInferior.Controls.Add(lblProvincia, 0, 4);
+            tableLayoutInferior.Controls.Add(cbxProvincias, 1, 4);
+            tableLayoutInferior.Controls.Add(lblLocalidad, 3, 3);
+            tableLayoutInferior.Controls.Add(txtLocalidad, 4, 3);
+            tableLayoutInferior.Controls.Add(lblDireccion, 0, 3);
+            tableLayoutInferior.Controls.Add(txtDireccion, 1, 3);
             tableLayoutInferior.Dock = DockStyle.Fill;
             tableLayoutInferior.Location = new Point(10, 26);
             tableLayoutInferior.Name = "tableLayoutInferior";
-            tableLayoutInferior.RowCount = 5;
-            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutInferior.RowCount = 6;
+            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tableLayoutInferior.RowStyles.Add(new RowStyle());
             tableLayoutInferior.Size = new Size(835, 205);
             tableLayoutInferior.TabIndex = 0;
@@ -359,7 +368,7 @@
             labelCod.Anchor = AnchorStyles.Right;
             labelCod.AutoSize = true;
             labelCod.Font = new Font("Segoe UI", 12F);
-            labelCod.Location = new Point(115, 10);
+            labelCod.Location = new Point(115, 6);
             labelCod.Name = "labelCod";
             labelCod.Size = new Size(60, 21);
             labelCod.TabIndex = 0;
@@ -369,7 +378,7 @@
             // 
             txtCod.Anchor = AnchorStyles.Left;
             txtCod.Enabled = false;
-            txtCod.Location = new Point(181, 9);
+            txtCod.Location = new Point(181, 5);
             txtCod.Name = "txtCod";
             txtCod.ShortcutsEnabled = false;
             txtCod.Size = new Size(130, 23);
@@ -380,7 +389,7 @@
             lblRazonSocial.Anchor = AnchorStyles.Right;
             lblRazonSocial.AutoSize = true;
             lblRazonSocial.Font = new Font("Segoe UI", 12F);
-            lblRazonSocial.Location = new Point(417, 10);
+            lblRazonSocial.Location = new Point(417, 6);
             lblRazonSocial.Name = "lblRazonSocial";
             lblRazonSocial.Size = new Size(101, 21);
             lblRazonSocial.TabIndex = 2;
@@ -391,7 +400,7 @@
             lblMail.Anchor = AnchorStyles.Right;
             lblMail.AutoSize = true;
             lblMail.Font = new Font("Segoe UI", 12F);
-            lblMail.Location = new Point(135, 52);
+            lblMail.Location = new Point(135, 39);
             lblMail.Name = "lblMail";
             lblMail.Size = new Size(40, 21);
             lblMail.TabIndex = 4;
@@ -401,7 +410,7 @@
             // 
             txtMail.Anchor = AnchorStyles.Left;
             txtMail.Enabled = false;
-            txtMail.Location = new Point(181, 51);
+            txtMail.Location = new Point(181, 38);
             txtMail.Name = "txtMail";
             txtMail.Size = new Size(130, 23);
             txtMail.TabIndex = 5;
@@ -411,7 +420,7 @@
             lblTelefono.Anchor = AnchorStyles.Right;
             lblTelefono.AutoSize = true;
             lblTelefono.Font = new Font("Segoe UI", 12F);
-            lblTelefono.Location = new Point(425, 52);
+            lblTelefono.Location = new Point(425, 39);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(93, 21);
             lblTelefono.TabIndex = 6;
@@ -422,46 +431,26 @@
             lblCuil.Anchor = AnchorStyles.Right;
             lblCuil.AutoSize = true;
             lblCuil.Font = new Font("Segoe UI", 12F);
-            lblCuil.Location = new Point(120, 94);
+            lblCuil.Location = new Point(120, 72);
             lblCuil.Name = "lblCuil";
             lblCuil.Size = new Size(55, 21);
             lblCuil.TabIndex = 8;
             lblCuil.Text = "C.U.I.L:";
             // 
-            // lblDireccion
-            // 
-            lblDireccion.Anchor = AnchorStyles.Right;
-            lblDireccion.AutoSize = true;
-            lblDireccion.Font = new Font("Segoe UI", 12F);
-            lblDireccion.Location = new Point(440, 94);
-            lblDireccion.Name = "lblDireccion";
-            lblDireccion.Size = new Size(78, 21);
-            lblDireccion.TabIndex = 10;
-            lblDireccion.Text = "Dirección:";
-            // 
             // txtCuil
             // 
             txtCuil.Anchor = AnchorStyles.Left;
             txtCuil.Enabled = false;
-            txtCuil.Location = new Point(181, 93);
+            txtCuil.Location = new Point(181, 71);
             txtCuil.Name = "txtCuil";
             txtCuil.Size = new Size(130, 23);
             txtCuil.TabIndex = 18;
-            // 
-            // txtDireccion
-            // 
-            txtDireccion.Anchor = AnchorStyles.Left;
-            txtDireccion.Enabled = false;
-            txtDireccion.Location = new Point(524, 93);
-            txtDireccion.Name = "txtDireccion";
-            txtDireccion.Size = new Size(130, 23);
-            txtDireccion.TabIndex = 19;
             // 
             // txtTelefono
             // 
             txtTelefono.Anchor = AnchorStyles.Left;
             txtTelefono.Enabled = false;
-            txtTelefono.Location = new Point(524, 51);
+            txtTelefono.Location = new Point(524, 38);
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(130, 23);
             txtTelefono.TabIndex = 20;
@@ -470,30 +459,10 @@
             // 
             txtRazonSocial.Anchor = AnchorStyles.Left;
             txtRazonSocial.Enabled = false;
-            txtRazonSocial.Location = new Point(524, 9);
+            txtRazonSocial.Location = new Point(524, 5);
             txtRazonSocial.Name = "txtRazonSocial";
             txtRazonSocial.Size = new Size(130, 23);
             txtRazonSocial.TabIndex = 21;
-            // 
-            // lblPagWeb
-            // 
-            lblPagWeb.Anchor = AnchorStyles.Right;
-            lblPagWeb.AutoSize = true;
-            lblPagWeb.Font = new Font("Segoe UI", 12F);
-            lblPagWeb.Location = new Point(98, 136);
-            lblPagWeb.Name = "lblPagWeb";
-            lblPagWeb.Size = new Size(77, 21);
-            lblPagWeb.TabIndex = 22;
-            lblPagWeb.Text = "Pág. WEB:";
-            // 
-            // txtPagWeb
-            // 
-            txtPagWeb.Anchor = AnchorStyles.Left;
-            txtPagWeb.Enabled = false;
-            txtPagWeb.Location = new Point(181, 135);
-            txtPagWeb.Name = "txtPagWeb";
-            txtPagWeb.Size = new Size(130, 23);
-            txtPagWeb.TabIndex = 23;
             // 
             // btnCerrarInfo
             // 
@@ -517,7 +486,7 @@
             tableLayoutInferior.SetColumnSpan(btnAceptar, 6);
             btnAceptar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAceptar.Image = Properties.Resources.check;
-            btnAceptar.Location = new Point(369, 171);
+            btnAceptar.Location = new Point(369, 169);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(97, 31);
             btnAceptar.TabIndex = 12;
@@ -526,6 +495,87 @@
             btnAceptar.UseVisualStyleBackColor = true;
             btnAceptar.Visible = false;
             btnAceptar.Click += btnAceptar_Click;
+            // 
+            // lblPagWeb
+            // 
+            lblPagWeb.Anchor = AnchorStyles.Right;
+            lblPagWeb.AutoSize = true;
+            lblPagWeb.Font = new Font("Segoe UI", 12F);
+            lblPagWeb.Location = new Point(441, 72);
+            lblPagWeb.Name = "lblPagWeb";
+            lblPagWeb.Size = new Size(77, 21);
+            lblPagWeb.TabIndex = 22;
+            lblPagWeb.Text = "Pág. WEB:";
+            // 
+            // txtPagWeb
+            // 
+            txtPagWeb.Anchor = AnchorStyles.Left;
+            txtPagWeb.Enabled = false;
+            txtPagWeb.Location = new Point(524, 71);
+            txtPagWeb.Name = "txtPagWeb";
+            txtPagWeb.Size = new Size(130, 23);
+            txtPagWeb.TabIndex = 23;
+            // 
+            // lblProvincia
+            // 
+            lblProvincia.Anchor = AnchorStyles.Right;
+            lblProvincia.AutoSize = true;
+            lblProvincia.Font = new Font("Segoe UI", 12F);
+            lblProvincia.Location = new Point(98, 138);
+            lblProvincia.Name = "lblProvincia";
+            lblProvincia.Size = new Size(77, 21);
+            lblProvincia.TabIndex = 26;
+            lblProvincia.Text = "Provincia:";
+            // 
+            // cbxProvincias
+            // 
+            cbxProvincias.Anchor = AnchorStyles.Left;
+            cbxProvincias.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxProvincias.FormattingEnabled = true;
+            cbxProvincias.Items.AddRange(new object[] { "CABA", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán" });
+            cbxProvincias.Location = new Point(181, 137);
+            cbxProvincias.Name = "cbxProvincias";
+            cbxProvincias.Size = new Size(130, 23);
+            cbxProvincias.TabIndex = 28;
+            // 
+            // lblLocalidad
+            // 
+            lblLocalidad.Anchor = AnchorStyles.Right;
+            lblLocalidad.AutoSize = true;
+            lblLocalidad.Font = new Font("Segoe UI", 12F);
+            lblLocalidad.Location = new Point(439, 105);
+            lblLocalidad.Name = "lblLocalidad";
+            lblLocalidad.Size = new Size(79, 21);
+            lblLocalidad.TabIndex = 25;
+            lblLocalidad.Text = "Localidad:";
+            // 
+            // txtLocalidad
+            // 
+            txtLocalidad.Anchor = AnchorStyles.Left;
+            txtLocalidad.Location = new Point(524, 104);
+            txtLocalidad.Name = "txtLocalidad";
+            txtLocalidad.Size = new Size(130, 23);
+            txtLocalidad.TabIndex = 27;
+            // 
+            // lblDireccion
+            // 
+            lblDireccion.Anchor = AnchorStyles.Right;
+            lblDireccion.AutoSize = true;
+            lblDireccion.Font = new Font("Segoe UI", 12F);
+            lblDireccion.Location = new Point(97, 105);
+            lblDireccion.Name = "lblDireccion";
+            lblDireccion.Size = new Size(78, 21);
+            lblDireccion.TabIndex = 10;
+            lblDireccion.Text = "Dirección:";
+            // 
+            // txtDireccion
+            // 
+            txtDireccion.Anchor = AnchorStyles.Left;
+            txtDireccion.Enabled = false;
+            txtDireccion.Location = new Point(181, 104);
+            txtDireccion.Name = "txtDireccion";
+            txtDireccion.Size = new Size(130, 23);
+            txtDireccion.TabIndex = 19;
             // 
             // tableLayoutPanel2
             // 
@@ -606,5 +656,9 @@
         private DataGridViewImageColumn Editar;
         private DataGridViewImageColumn Eliminar;
         private Button btnCerrarInfo;
+        private Label lblLocalidad;
+        private Label lblProvincia;
+        private TextBox txtLocalidad;
+        private ComboBox cbxProvincias;
     }
 }

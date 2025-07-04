@@ -48,12 +48,12 @@
             label9 = new Label();
             textBox9 = new TextBox();
             groupBox2 = new GroupBox();
+            button1 = new Button();
             dataGridView1 = new DataGridView();
             Codigo = new DataGridViewTextBoxColumn();
             Descripcion = new DataGridViewTextBoxColumn();
             Precio = new DataGridViewTextBoxColumn();
             Cantidad = new DataGridViewTextBoxColumn();
-            button1 = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -205,13 +205,13 @@
             label8.Font = new Font("Segoe UI", 12F);
             label8.Location = new Point(307, 11);
             label8.Name = "label8";
-            label8.Size = new Size(143, 21);
+            label8.Size = new Size(71, 21);
             label8.TabIndex = 13;
-            label8.Text = "Nombre Completo:";
+            label8.Text = "Nombre:";
             // 
             // textBox8
             // 
-            textBox8.Location = new Point(456, 13);
+            textBox8.Location = new Point(384, 9);
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(149, 23);
             textBox8.TabIndex = 14;
@@ -220,7 +220,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F);
-            label9.Location = new Point(625, 15);
+            label9.Location = new Point(558, 9);
             label9.Name = "label9";
             label9.Size = new Size(55, 21);
             label9.TabIndex = 12;
@@ -228,7 +228,7 @@
             // 
             // textBox9
             // 
-            textBox9.Location = new Point(686, 17);
+            textBox9.Location = new Point(619, 11);
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(86, 23);
             textBox9.TabIndex = 15;
@@ -243,6 +243,15 @@
             groupBox2.TabIndex = 16;
             groupBox2.TabStop = false;
             groupBox2.Text = "Pedido";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(15, 178);
+            button1.Name = "button1";
+            button1.Size = new Size(22, 23);
+            button1.TabIndex = 1;
+            button1.Text = "+";
+            button1.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
             // 
@@ -276,15 +285,6 @@
             Cantidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Cantidad.HeaderText = "Cantidad";
             Cantidad.Name = "Cantidad";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(648, 22);
-            button1.Name = "button1";
-            button1.Size = new Size(22, 23);
-            button1.TabIndex = 1;
-            button1.Text = "+";
-            button1.UseVisualStyleBackColor = true;
             // 
             // FormVentas
             // 

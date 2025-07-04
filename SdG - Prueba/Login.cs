@@ -1,5 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using SdG___Prueba.Modulos.Personal;
+using SdG___Prueba.Clases;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

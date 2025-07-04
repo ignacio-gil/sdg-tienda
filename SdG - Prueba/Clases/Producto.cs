@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SdG___Prueba.Modulos.Productos
+namespace SdG___Prueba.Clases
 {
     public class Producto(string codigo, int idMarca, string modelo, int cantidad, float precio, int idCat)
     {

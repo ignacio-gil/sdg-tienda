@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.Cms;
+using SdG___Prueba.Clases;
 using SdG___Prueba.Modulos;
-using SdG___Prueba.Modulos.Personal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +18,8 @@ namespace SdG___Prueba
 {
     public partial class FormPrincipal : Form
     {
+        bool verItemsVentas = false;
+        bool verItemsCompras = false;
         private readonly Personal personal;
         public FormPrincipal(Personal personal)
         {
@@ -58,18 +60,18 @@ namespace SdG___Prueba
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            if(personal.IdRol == 2)
+            if (personal.IdRol == 2)
             {
                 ItemProductos.Visible = false;
                 ItemProveedores.Visible = false;
-            } 
-            else if(personal.IdRol == 3)
+            }
+            else if (personal.IdRol == 3)
             {
                 ItemProductos.Visible = false;
                 ItemProveedores.Visible = false;
             }
 
-                FormHome formHome = new FormHome();
+            FormHome formHome = new FormHome();
             formHome.MdiParent = this;
             formHome.Show();
 
@@ -89,7 +91,11 @@ namespace SdG___Prueba
 
         private void ItemVentas_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(typeof(FormVentas));
+            itemNuevaVenta.Visible = !verItemsVentas;
+            itemListaDeVentas.Visible = !verItemsVentas;
+            verItemsVentas = !verItemsVentas;
+            ItemVentas.BackgroundImage = (verItemsVentas) ? Properties.Resources.btnLateralPressed : Properties.Resources.btnLateralNormal;
+            //AbrirFormulario(typeof(FormVentas));
         }
         private string buscarRolPorId(int idRol)
         {
@@ -124,6 +130,23 @@ namespace SdG___Prueba
             }
         }
 
+        private void itemCompras_Click(object sender, EventArgs e)
+        {
+            itemNuevaCompra.Visible = !verItemsCompras;
+            itemListaDeCompras.Visible = !verItemsCompras;
+            verItemsCompras = !verItemsCompras;
+            itemCompras.BackgroundImage = (verItemsCompras) ? Properties.Resources.btnLateralPressed : Properties.Resources.btnLateralNormal;
+        }
+
+        private void ItemClientes_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(typeof(FormClientes));
+        }
+
+        private void itemCajas_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(typeof(FormCajas));
+        }
     }
 
 

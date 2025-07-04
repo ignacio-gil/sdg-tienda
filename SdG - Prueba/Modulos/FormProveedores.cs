@@ -1,5 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using SdG___Prueba.Modulos.Proveedores;
+using SdG___Prueba.Clases;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,6 +49,8 @@ namespace SdG___Prueba.Modulos
             txtTelefono.Clear();
             txtCuil.Clear();
             txtDireccion.Clear();
+            txtLocalidad.Clear();
+            cbxProvincias.SelectedIndex = -1;
             txtPagWeb.Clear();
             txtBuscar.Clear();
         }
@@ -87,12 +89,17 @@ namespace SdG___Prueba.Modulos
         {
             try
             {
-                string razonSocial = txtRazonSocial.Text;
-                string mail = txtMail.Text;
-                string cuil = txtCuil.Text;
-                string telefono = txtTelefono.Text;
-                string direccion = txtDireccion.Text;
-                string paginaWeb = txtPagWeb.Text;
+                Proveedor proveedor = new(
+                    txtCod.Text,
+                    txtRazonSocial.Text,
+                    txtMail.Text,
+                    txtTelefono.Text,
+                    txtCuil.Text,
+                    txtDireccion.Text,
+                    txtLocalidad.Text,
+                    buscarProvincia(cbxProvincias.Text),
+                    txtPagWeb.Text
+                );
 
                 string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -100,17 +107,19 @@ namespace SdG___Prueba.Modulos
                     connection.Open();
 
                     string query = "INSERT INTO proveedor " +
-                        "(razonSocial, cuil, mail, telefono, paginaWeb, direccion)" +
-                        " VALUES (@razonSocial, @cuil, @mail, @telefono, @pagWeb, @direccion)";
+                        "(razonSocial, cuil, mail, telefono, paginaWeb, direccion, localidad, idProvincia)" +
+                        " VALUES (@razonSocial, @cuil, @mail, @telefono, @pagWeb, @direccion, @localidad, @idProv)";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@razonSocial", razonSocial);
-                        command.Parameters.AddWithValue("@cuil", cuil);
-                        command.Parameters.AddWithValue("@mail", mail);
-                        command.Parameters.AddWithValue("@telefono", telefono);
-                        command.Parameters.AddWithValue("@pagWeb", paginaWeb);
-                        command.Parameters.AddWithValue("@direccion", direccion);
+                        command.Parameters.AddWithValue("@razonSocial", proveedor.RazonSocial);
+                        command.Parameters.AddWithValue("@cuil", proveedor.Cuil);
+                        command.Parameters.AddWithValue("@mail", proveedor.Mail);
+                        command.Parameters.AddWithValue("@telefono", proveedor.Telefono);
+                        command.Parameters.AddWithValue("@pagWeb", proveedor.PagWeb);
+                        command.Parameters.AddWithValue("@direccion", proveedor.Direccion);
+                        command.Parameters.AddWithValue("@localidad", proveedor.Localidad);
+                        command.Parameters.AddWithValue("@idProv", proveedor.IdProvincia);
 
                         if (command.ExecuteNonQuery() == -1)
                         {
@@ -243,6 +252,8 @@ namespace SdG___Prueba.Modulos
                                 reader.GetString("telefono"),
                                 reader.GetString("cuil"),
                                 reader.GetString("direccion"),
+                                reader.GetString("localidad"),
+                                reader.GetInt32("idProvincia"),
                                 reader.GetString("paginaWeb")
                             );
                         }
@@ -267,6 +278,8 @@ namespace SdG___Prueba.Modulos
                     txtTelefono.Text,
                     txtCuil.Text,
                     txtDireccion.Text,
+                    txtLocalidad.Text,
+                    buscarProvincia(cbxProvincias.Text),
                     txtPagWeb.Text
                 );
 
@@ -277,17 +290,19 @@ namespace SdG___Prueba.Modulos
 
                     string query = "UPDATE proveedor " +
                         "SET razonSocial=@razonSocial, mail=@mail, " +
-                        "telefono=@telefono, cuil=@cuil, direccion=@direccion, paginaWeb=@paginaWeb " +
+                        "telefono=@telefono, cuil=@cuil, direccion=@direccion, localidad=@localidad, idProvincia=@idProv, paginaWeb=@paginaWeb " +
                         "WHERE idProveedor=@idProveedor";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@razonSocial", proveedor.razonSocial);
-                        command.Parameters.AddWithValue("@mail", proveedor.mail);
-                        command.Parameters.AddWithValue("@telefono", proveedor.telefono);
-                        command.Parameters.AddWithValue("@cuil", proveedor.cuil);
-                        command.Parameters.AddWithValue("@direccion", proveedor.direccion);
-                        command.Parameters.AddWithValue("@paginaWeb", proveedor.pagWeb);
+                        command.Parameters.AddWithValue("@razonSocial", proveedor.RazonSocial);
+                        command.Parameters.AddWithValue("@mail", proveedor.Mail);
+                        command.Parameters.AddWithValue("@telefono", proveedor.Telefono);
+                        command.Parameters.AddWithValue("@cuil", proveedor.Cuil);
+                        command.Parameters.AddWithValue("@direccion", proveedor.Direccion);
+                        command.Parameters.AddWithValue("@localidad", proveedor.Localidad);
+                        command.Parameters.AddWithValue("@idProv", proveedor.IdProvincia);
+                        command.Parameters.AddWithValue("@paginaWeb", proveedor.PagWeb);
                         command.Parameters.AddWithValue("@idProveedor", codProvSel);
 
                         if (command.ExecuteNonQuery() == -1)
@@ -368,13 +383,15 @@ namespace SdG___Prueba.Modulos
                 Proveedor proveedor = buscarProveedor(codProvSel);
 
                 groupBox1.Text = "Modificar proveedor";
-                txtCod.Text = proveedor.id;
-                txtRazonSocial.Text = proveedor.razonSocial;
-                txtMail.Text = proveedor.mail;
-                txtTelefono.Text = proveedor.telefono;
-                txtCuil.Text = proveedor.cuil;
-                txtDireccion.Text = proveedor.direccion;
-                txtPagWeb.Text = proveedor.pagWeb;
+                txtCod.Text = proveedor.Id;
+                txtRazonSocial.Text = proveedor.RazonSocial;
+                txtMail.Text = proveedor.Mail;
+                txtTelefono.Text = proveedor.Telefono;
+                txtCuil.Text = proveedor.Cuil;
+                txtDireccion.Text = proveedor.Direccion;
+                txtLocalidad.Text = proveedor.Localidad;
+                cbxProvincias.Text = buscarProvinciaPorId(proveedor.IdProvincia);
+                txtPagWeb.Text = proveedor.PagWeb;
             }
             else if (e.ColumnIndex == 7)
             {
@@ -433,6 +450,8 @@ namespace SdG___Prueba.Modulos
                 txtTelefono.ReadOnly = true;
                 txtCuil.ReadOnly = true;
                 txtDireccion.ReadOnly = true;
+                txtLocalidad.ReadOnly = true;
+                cbxProvincias.Enabled = false;
                 txtPagWeb.ReadOnly = true;
 
                 DataGridViewRow filaSeleccionada = dtvProveedores.CurrentRow;
@@ -440,14 +459,15 @@ namespace SdG___Prueba.Modulos
                 Proveedor proveedor = buscarProveedor(codProvSel);
 
                 groupBox1.Text = "Más info";
-                txtCod.Text = proveedor.id;
-                txtRazonSocial.Text = proveedor.razonSocial;
-                txtMail.Text = proveedor.mail;
-                txtTelefono.Text = proveedor.telefono;
-                txtCuil.Text = proveedor.cuil;
-                txtDireccion.Text = proveedor.direccion;
-                txtPagWeb.Text = proveedor.pagWeb;
-
+                txtCod.Text = proveedor.Id;
+                txtRazonSocial.Text = proveedor.RazonSocial;
+                txtMail.Text = proveedor.Mail;
+                txtTelefono.Text = proveedor.Telefono;
+                txtCuil.Text = proveedor.Cuil;
+                txtDireccion.Text = proveedor.Direccion;
+                txtLocalidad.Text = proveedor.Localidad;
+                cbxProvincias.Text = buscarProvinciaPorId(proveedor.IdProvincia);
+                txtPagWeb.Text = proveedor.PagWeb;
             }
         }
 
@@ -467,9 +487,79 @@ namespace SdG___Prueba.Modulos
                 txtTelefono.ReadOnly = false;
                 txtCuil.ReadOnly = false;
                 txtDireccion.ReadOnly = false;
+                txtLocalidad.ReadOnly = false;
+                cbxProvincias.Enabled = true;
                 txtPagWeb.ReadOnly = false;
             }
             opcionElegida = 0;
         }
+
+        private int buscarProvincia(string provinciaElegida)
+        {
+            try
+            {
+                string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT * FROM provincia WHERE nombre=@nombreProv";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@nombreProv", provinciaElegida);
+                        MySqlDataReader reader = command.ExecuteReader();
+                        if (!reader.Read())
+                        {
+                            return -1;
+                        }
+                        else
+                        {
+                            return reader.GetInt32("idProvincia");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return -1;
+            }
+        }
+
+        private string buscarProvinciaPorId(int idProvincia)
+        {
+            try
+            {
+                string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT * FROM provincia WHERE idProvincia=@idProvincia";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idProvincia", idProvincia);
+                        MySqlDataReader reader = command.ExecuteReader();
+                        if (!reader.Read())
+                        {
+                            return "";
+                        }
+                        else
+                        {
+                            return reader.GetString("nombre");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return "";
+            }
+        }
     }
+
+
 }
