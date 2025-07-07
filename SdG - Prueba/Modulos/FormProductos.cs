@@ -19,6 +19,7 @@ namespace SdG___Prueba.Modulos
 {
     public partial class FormProductos : Form
     {
+        Personal personal;
         private string codProductoSel = "";
         private int opcionElegida = 0;
 
@@ -156,6 +157,15 @@ namespace SdG___Prueba.Modulos
             cargarCategorias();
             cargarDtvProductos();
             cbxBuscarPor.SelectedIndex = 0;
+
+            personal = personal = ((FormPrincipal)this.MdiParent).personal;
+            if(personal.Id == 3)
+            {
+                lblTitulo.Text = "Consultar Stock Productos";
+                btnAgregar.Visible = false;
+                Editar.Visible = false;
+                Borrar.Visible = false;
+            }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

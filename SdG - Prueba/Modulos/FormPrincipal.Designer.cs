@@ -211,6 +211,7 @@
             itemNuevaCompra.Size = new Size(200, 30);
             itemNuevaCompra.Text = "Nueva compra";
             itemNuevaCompra.Visible = false;
+            itemNuevaCompra.Click += itemNuevaCompra_Click;
             // 
             // itemListaDeCompras
             // 

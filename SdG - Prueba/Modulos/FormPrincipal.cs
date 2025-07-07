@@ -33,7 +33,7 @@ namespace SdG___Prueba
             AbrirFormulario(typeof(FormHome));
         }
 
-        private void AbrirFormulario(Type tipoFormulario)
+        public void AbrirFormulario(Type tipoFormulario)
         {
             bool existe = false;
             foreach (Form frm in this.MdiChildren)
@@ -62,13 +62,17 @@ namespace SdG___Prueba
         {
             if (personal.IdRol == 2)
             {
-                ItemProductos.Visible = false;
-                ItemProveedores.Visible = false;
+                //Cajero
+
+                
             }
             else if (personal.IdRol == 3)
             {
-                ItemProductos.Visible = false;
+                //Vendedor
+                ItemVentas.Visible = false;
+                itemCompras.Visible = false;
                 ItemProveedores.Visible = false;
+                itemCajas.Visible = false;
             }
 
             FormHome formHome = new FormHome();
@@ -76,7 +80,7 @@ namespace SdG___Prueba
             formHome.Show();
 
             lblFullName.Text = personal.Apellido + ", " + personal.Nombre;
-            lblRol.Text = "Rol: " + buscarRolPorId(personal.IdRol);
+            lblRol.Text = "Rol: " + Personal.buscarNombreRol(personal.IdRol);
         }
 
         private void ItemProductos_Click(object sender, EventArgs e)
@@ -96,38 +100,6 @@ namespace SdG___Prueba
             verItemsVentas = !verItemsVentas;
             ItemVentas.BackgroundImage = (verItemsVentas) ? Properties.Resources.btnLateralPressed : Properties.Resources.btnLateralNormal;
             //AbrirFormulario(typeof(FormVentas));
-        }
-        private string buscarRolPorId(int idRol)
-        {
-            try
-            {
-                string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    string query = "SELECT * FROM rol WHERE idRol=@idRol";
-
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@idRol", idRol);
-                        MySqlDataReader reader = command.ExecuteReader();
-                        if (!reader.Read())
-                        {
-                            return "";
-                        }
-                        else
-                        {
-                            return reader.GetString("nombreRol");
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-                return "";
-            }
         }
 
         private void itemCompras_Click(object sender, EventArgs e)
@@ -156,6 +128,11 @@ namespace SdG___Prueba
         private void itemListaDeVentas_Click(object sender, EventArgs e)
         {
             AbrirFormulario(typeof(FormListaDeVentas));
+        }
+
+        private void itemNuevaCompra_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(typeof(FormNuevaCompra));
         }
     }
 
