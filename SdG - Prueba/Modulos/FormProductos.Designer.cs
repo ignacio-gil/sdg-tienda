@@ -52,18 +52,21 @@
             label2 = new Label();
             cbxCategoria = new ComboBox();
             lblCantidad = new Label();
-            lblPrecio = new Label();
+            lblPrecioCompra = new Label();
             cbxMarca = new ComboBox();
             numCantidad = new NumericUpDown();
-            numPrecio = new NumericUpDown();
+            numPrecioCompra = new NumericUpDown();
             btnAceptar = new Button();
             btnConfigCategorias = new Button();
             tableLayoutPanel2 = new TableLayoutPanel();
+            numPrecioVenta = new NumericUpDown();
+            label1 = new Label();
             Codigo = new DataGridViewTextBoxColumn();
             Descripcion = new DataGridViewTextBoxColumn();
             Categoria = new DataGridViewTextBoxColumn();
             Cantidad = new DataGridViewTextBoxColumn();
-            Precio_unitario = new DataGridViewTextBoxColumn();
+            Precio_Compra = new DataGridViewTextBoxColumn();
+            Precio_Venta = new DataGridViewTextBoxColumn();
             info = new DataGridViewImageColumn();
             Editar = new DataGridViewImageColumn();
             Borrar = new DataGridViewImageColumn();
@@ -74,8 +77,9 @@
             groupBox1.SuspendLayout();
             tableLayoutInferior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numCantidad).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numPrecio).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numPrecioCompra).BeginInit();
             tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numPrecioVenta).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -243,7 +247,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dtvProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtvProductos.Columns.AddRange(new DataGridViewColumn[] { Codigo, Descripcion, Categoria, Cantidad, Precio_unitario, info, Editar, Borrar });
+            dtvProductos.Columns.AddRange(new DataGridViewColumn[] { Codigo, Descripcion, Categoria, Cantidad, Precio_Compra, Precio_Venta, info, Editar, Borrar });
             tableLayoutSuperior.SetColumnSpan(dtvProductos, 3);
             dtvProductos.Location = new Point(10, 141);
             dtvProductos.Margin = new Padding(10, 3, 10, 3);
@@ -287,20 +291,23 @@
             tableLayoutInferior.Controls.Add(txtModelo, 1, 1);
             tableLayoutInferior.Controls.Add(label2, 2, 1);
             tableLayoutInferior.Controls.Add(cbxCategoria, 3, 1);
-            tableLayoutInferior.Controls.Add(lblCantidad, 0, 2);
-            tableLayoutInferior.Controls.Add(lblPrecio, 2, 2);
             tableLayoutInferior.Controls.Add(cbxMarca, 3, 0);
-            tableLayoutInferior.Controls.Add(numCantidad, 1, 2);
-            tableLayoutInferior.Controls.Add(numPrecio, 3, 2);
-            tableLayoutInferior.Controls.Add(btnAceptar, 0, 3);
+            tableLayoutInferior.Controls.Add(btnAceptar, 0, 4);
             tableLayoutInferior.Controls.Add(btnConfigCategorias, 4, 1);
+            tableLayoutInferior.Controls.Add(numCantidad, 1, 3);
+            tableLayoutInferior.Controls.Add(lblCantidad, 0, 3);
+            tableLayoutInferior.Controls.Add(lblPrecioCompra, 0, 2);
+            tableLayoutInferior.Controls.Add(numPrecioCompra, 1, 2);
+            tableLayoutInferior.Controls.Add(numPrecioVenta, 3, 2);
+            tableLayoutInferior.Controls.Add(label1, 2, 2);
             tableLayoutInferior.Dock = DockStyle.Fill;
             tableLayoutInferior.Location = new Point(10, 26);
             tableLayoutInferior.Name = "tableLayoutInferior";
-            tableLayoutInferior.RowCount = 4;
-            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33333F));
-            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333359F));
-            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutInferior.RowCount = 5;
+            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutInferior.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutInferior.RowStyles.Add(new RowStyle());
             tableLayoutInferior.Size = new Size(852, 205);
             tableLayoutInferior.TabIndex = 0;
@@ -325,17 +332,17 @@
             labelCod.Anchor = AnchorStyles.Right;
             labelCod.AutoSize = true;
             labelCod.Font = new Font("Segoe UI", 12F);
-            labelCod.Location = new Point(105, 15);
+            labelCod.Location = new Point(102, 9);
             labelCod.Name = "labelCod";
-            labelCod.Size = new Size(60, 21);
+            labelCod.Size = new Size(63, 21);
             labelCod.TabIndex = 0;
-            labelCod.Text = "Código";
+            labelCod.Text = "Código:";
             // 
             // txtCod
             // 
             txtCod.Anchor = AnchorStyles.Left;
             txtCod.Enabled = false;
-            txtCod.Location = new Point(171, 14);
+            txtCod.Location = new Point(171, 8);
             txtCod.Name = "txtCod";
             txtCod.ShortcutsEnabled = false;
             txtCod.Size = new Size(130, 23);
@@ -346,17 +353,17 @@
             lblMarca.Anchor = AnchorStyles.Right;
             lblMarca.AutoSize = true;
             lblMarca.Font = new Font("Segoe UI", 12F);
-            lblMarca.Location = new Point(448, 15);
+            lblMarca.Location = new Point(445, 9);
             lblMarca.Name = "lblMarca";
-            lblMarca.Size = new Size(53, 21);
+            lblMarca.Size = new Size(56, 21);
             lblMarca.TabIndex = 2;
-            lblMarca.Text = "Marca";
+            lblMarca.Text = "Marca:";
             // 
             // btnConfigMarca
             // 
             btnConfigMarca.Anchor = AnchorStyles.Left;
             btnConfigMarca.Image = Properties.Resources.settings;
-            btnConfigMarca.Location = new Point(653, 10);
+            btnConfigMarca.Location = new Point(653, 4);
             btnConfigMarca.Name = "btnConfigMarca";
             btnConfigMarca.Size = new Size(30, 30);
             btnConfigMarca.TabIndex = 26;
@@ -368,17 +375,17 @@
             lblModelo.Anchor = AnchorStyles.Right;
             lblModelo.AutoSize = true;
             lblModelo.Font = new Font("Segoe UI", 12F);
-            lblModelo.Location = new Point(102, 66);
+            lblModelo.Location = new Point(99, 48);
             lblModelo.Name = "lblModelo";
-            lblModelo.Size = new Size(63, 21);
+            lblModelo.Size = new Size(66, 21);
             lblModelo.TabIndex = 4;
-            lblModelo.Text = "Modelo";
+            lblModelo.Text = "Modelo:";
             // 
             // txtModelo
             // 
             txtModelo.Anchor = AnchorStyles.Left;
             txtModelo.Enabled = false;
-            txtModelo.Location = new Point(171, 65);
+            txtModelo.Location = new Point(171, 47);
             txtModelo.Name = "txtModelo";
             txtModelo.Size = new Size(130, 23);
             txtModelo.TabIndex = 5;
@@ -388,11 +395,11 @@
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(424, 66);
+            label2.Location = new Point(421, 48);
             label2.Name = "label2";
-            label2.Size = new Size(77, 21);
+            label2.Size = new Size(80, 21);
             label2.TabIndex = 6;
-            label2.Text = "Categoría";
+            label2.Text = "Categoría:";
             // 
             // cbxCategoria
             // 
@@ -400,7 +407,7 @@
             cbxCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxCategoria.Enabled = false;
             cbxCategoria.FormattingEnabled = true;
-            cbxCategoria.Location = new Point(507, 65);
+            cbxCategoria.Location = new Point(507, 47);
             cbxCategoria.Name = "cbxCategoria";
             cbxCategoria.Size = new Size(140, 23);
             cbxCategoria.TabIndex = 7;
@@ -410,22 +417,22 @@
             lblCantidad.Anchor = AnchorStyles.Right;
             lblCantidad.AutoSize = true;
             lblCantidad.Font = new Font("Segoe UI", 12F);
-            lblCantidad.Location = new Point(93, 118);
+            lblCantidad.Location = new Point(90, 126);
             lblCantidad.Name = "lblCantidad";
-            lblCantidad.Size = new Size(72, 21);
+            lblCantidad.Size = new Size(75, 21);
             lblCantidad.TabIndex = 8;
-            lblCantidad.Text = "Cantidad";
+            lblCantidad.Text = "Cantidad:";
             // 
-            // lblPrecio
+            // lblPrecioCompra
             // 
-            lblPrecio.Anchor = AnchorStyles.Right;
-            lblPrecio.AutoSize = true;
-            lblPrecio.Font = new Font("Segoe UI", 12F);
-            lblPrecio.Location = new Point(448, 118);
-            lblPrecio.Name = "lblPrecio";
-            lblPrecio.Size = new Size(53, 21);
-            lblPrecio.TabIndex = 10;
-            lblPrecio.Text = "Precio";
+            lblPrecioCompra.Anchor = AnchorStyles.Right;
+            lblPrecioCompra.AutoSize = true;
+            lblPrecioCompra.Font = new Font("Segoe UI", 12F);
+            lblPrecioCompra.Location = new Point(49, 87);
+            lblPrecioCompra.Name = "lblPrecioCompra";
+            lblPrecioCompra.Size = new Size(116, 21);
+            lblPrecioCompra.TabIndex = 10;
+            lblPrecioCompra.Text = "Precio Compra:";
             // 
             // cbxMarca
             // 
@@ -433,7 +440,7 @@
             cbxMarca.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxMarca.Enabled = false;
             cbxMarca.FormattingEnabled = true;
-            cbxMarca.Location = new Point(507, 14);
+            cbxMarca.Location = new Point(507, 8);
             cbxMarca.Name = "cbxMarca";
             cbxMarca.Size = new Size(140, 23);
             cbxMarca.TabIndex = 14;
@@ -442,24 +449,24 @@
             // 
             numCantidad.Anchor = AnchorStyles.Left;
             numCantidad.Enabled = false;
-            numCantidad.Location = new Point(171, 117);
+            numCantidad.Location = new Point(171, 125);
             numCantidad.Name = "numCantidad";
             numCantidad.Size = new Size(66, 23);
             numCantidad.TabIndex = 15;
             numCantidad.TextAlign = HorizontalAlignment.Center;
             // 
-            // numPrecio
+            // numPrecioCompra
             // 
-            numPrecio.Anchor = AnchorStyles.Left;
-            numPrecio.DecimalPlaces = 2;
-            numPrecio.Enabled = false;
-            numPrecio.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
-            numPrecio.Location = new Point(507, 117);
-            numPrecio.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
-            numPrecio.Name = "numPrecio";
-            numPrecio.Size = new Size(120, 23);
-            numPrecio.TabIndex = 16;
-            numPrecio.TextAlign = HorizontalAlignment.Center;
+            numPrecioCompra.Anchor = AnchorStyles.Left;
+            numPrecioCompra.DecimalPlaces = 2;
+            numPrecioCompra.Enabled = false;
+            numPrecioCompra.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
+            numPrecioCompra.Location = new Point(171, 86);
+            numPrecioCompra.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            numPrecioCompra.Name = "numPrecioCompra";
+            numPrecioCompra.Size = new Size(130, 23);
+            numPrecioCompra.TabIndex = 16;
+            numPrecioCompra.TextAlign = HorizontalAlignment.Center;
             // 
             // btnAceptar
             // 
@@ -468,7 +475,7 @@
             tableLayoutInferior.SetColumnSpan(btnAceptar, 6);
             btnAceptar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAceptar.Image = Properties.Resources.check;
-            btnAceptar.Location = new Point(377, 170);
+            btnAceptar.Location = new Point(377, 171);
             btnAceptar.Margin = new Padding(3, 15, 3, 3);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(97, 31);
@@ -483,7 +490,7 @@
             // 
             btnConfigCategorias.Anchor = AnchorStyles.Left;
             btnConfigCategorias.Image = Properties.Resources.settings;
-            btnConfigCategorias.Location = new Point(653, 62);
+            btnConfigCategorias.Location = new Point(653, 43);
             btnConfigCategorias.Name = "btnConfigCategorias";
             btnConfigCategorias.Size = new Size(30, 30);
             btnConfigCategorias.TabIndex = 27;
@@ -502,6 +509,30 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.Size = new Size(978, 784);
             tableLayoutPanel2.TabIndex = 1;
+            // 
+            // numPrecioVenta
+            // 
+            numPrecioVenta.Anchor = AnchorStyles.Left;
+            numPrecioVenta.DecimalPlaces = 2;
+            numPrecioVenta.Enabled = false;
+            numPrecioVenta.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
+            numPrecioVenta.Location = new Point(507, 86);
+            numPrecioVenta.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            numPrecioVenta.Name = "numPrecioVenta";
+            numPrecioVenta.Size = new Size(130, 23);
+            numPrecioVenta.TabIndex = 28;
+            numPrecioVenta.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F);
+            label1.Location = new Point(402, 87);
+            label1.Name = "label1";
+            label1.Size = new Size(99, 21);
+            label1.TabIndex = 29;
+            label1.Text = "Precio Venta:";
             // 
             // Codigo
             // 
@@ -534,13 +565,21 @@
             Cantidad.ReadOnly = true;
             Cantidad.Width = 60;
             // 
-            // Precio_unitario
+            // Precio_Compra
             // 
-            Precio_unitario.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            Precio_unitario.HeaderText = "Precio /u";
-            Precio_unitario.Name = "Precio_unitario";
-            Precio_unitario.ReadOnly = true;
-            Precio_unitario.Width = 90;
+            Precio_Compra.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Precio_Compra.HeaderText = "Precio Compra";
+            Precio_Compra.Name = "Precio_Compra";
+            Precio_Compra.ReadOnly = true;
+            Precio_Compra.Width = 90;
+            // 
+            // Precio_Venta
+            // 
+            Precio_Venta.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Precio_Venta.HeaderText = "Precio Venta";
+            Precio_Venta.Name = "Precio_Venta";
+            Precio_Venta.ReadOnly = true;
+            Precio_Venta.Width = 90;
             // 
             // info
             // 
@@ -595,8 +634,9 @@
             tableLayoutInferior.ResumeLayout(false);
             tableLayoutInferior.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numCantidad).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numPrecio).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numPrecioCompra).EndInit();
             tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)numPrecioVenta).EndInit();
             ResumeLayout(false);
         }
 
@@ -619,13 +659,13 @@
         private Label label2;
         private ComboBox cbxCategoria;
         private Label lblCantidad;
-        private Label lblPrecio;
+        private Label lblPrecioCompra;
         private Button btnAceptar;
         private ComboBox cbxMarca;
         private Button btnAgregar;
         private Button btnActualizar;
         private NumericUpDown numCantidad;
-        private NumericUpDown numPrecio;
+        private NumericUpDown numPrecioCompra;
         private TableLayoutPanel tableLayoutPanel2;
         private Button btnCerrarInfo;
         private Button btnConfigMarca;
@@ -636,9 +676,12 @@
         private DataGridViewTextBoxColumn Descripcion;
         private DataGridViewTextBoxColumn Categoria;
         private DataGridViewTextBoxColumn Cantidad;
-        private DataGridViewTextBoxColumn Precio_unitario;
+        private DataGridViewTextBoxColumn Precio_Compra;
+        private DataGridViewTextBoxColumn Precio_Venta;
         private DataGridViewImageColumn info;
         private DataGridViewImageColumn Editar;
         private DataGridViewImageColumn Borrar;
+        private NumericUpDown numPrecioVenta;
+        private Label label1;
     }
 }

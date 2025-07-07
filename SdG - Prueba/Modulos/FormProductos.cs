@@ -40,12 +40,15 @@ namespace SdG___Prueba.Modulos
         {
             try
             {
-                string codigo = txtCod.Text;
-                int idMarca = buscarMarca(cbxMarca.SelectedItem.ToString());
-                string modelo = txtModelo.Text;
-                int cantidad = Convert.ToInt32(numCantidad.Value);
-                float precio = float.Parse(numPrecio.Value.ToString());
-                int idCategoria = buscarCategoria(cbxCategoria.SelectedItem.ToString());
+                Producto nuevoProducto = new(
+                    txtCod.Text,
+                    buscarMarca(cbxMarca.SelectedItem.ToString()),
+                    txtModelo.Text,
+                    Convert.ToInt32(numCantidad.Value),
+                    numPrecioCompra.Value,
+                    numPrecioVenta.Value,
+                    buscarCategoria(cbxCategoria.SelectedItem.ToString())
+                );
 
                 string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -53,17 +56,18 @@ namespace SdG___Prueba.Modulos
                     connection.Open();
 
                     string query = "INSERT INTO producto " +
-                        "(codProducto, idMarca, modelo, cantidadStock, precioUnitario, idCategoria)" +
-                        " VALUES (@cod, @idMarca, @modelo, @cantidadStock, @precioUnitario, @idCat)";
+                        "(codProducto, idMarca, modelo, cantidadStock, precioCompra, precioVenta, idCategoria)" +
+                        " VALUES (@cod, @idMarca, @modelo, @cantidadStock, @precioCompra, @precioVenta, @idCat)";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@cod", codigo);
-                        command.Parameters.AddWithValue("@idMarca", idMarca);
-                        command.Parameters.AddWithValue("@modelo", modelo);
-                        command.Parameters.AddWithValue("@cantidadStock", cantidad);
-                        command.Parameters.AddWithValue("@precioUnitario", precio);
-                        command.Parameters.AddWithValue("@idCat", idCategoria);
+                        command.Parameters.AddWithValue("@cod", nuevoProducto.Codigo);
+                        command.Parameters.AddWithValue("@idMarca", nuevoProducto.IdMarca);
+                        command.Parameters.AddWithValue("@modelo", nuevoProducto.Modelo);
+                        command.Parameters.AddWithValue("@cantidadStock", nuevoProducto.Cantidad);
+                        command.Parameters.AddWithValue("@precioCompra", nuevoProducto.PrecioCompra);
+                        command.Parameters.AddWithValue("@precioVenta", nuevoProducto.PrecioVenta);
+                        command.Parameters.AddWithValue("@idCat", nuevoProducto.IdCat);
 
                         if (command.ExecuteNonQuery() == -1)
                         {
@@ -187,7 +191,8 @@ namespace SdG___Prueba.Modulos
             txtModelo.Enabled = activar;
             cbxCategoria.Enabled = activar;
             numCantidad.Enabled = activar;
-            numPrecio.Enabled = activar;
+            numPrecioCompra.Enabled = activar;
+            numPrecioVenta.Enabled = activar;
 
             btnAceptar.Visible = activar;
 
@@ -202,7 +207,8 @@ namespace SdG___Prueba.Modulos
             txtModelo.Clear();
             cbxCategoria.SelectedIndex = -1;
             numCantidad.Value = 0;
-            numPrecio.Value = 0;
+            numPrecioCompra.Value = 0;
+            numPrecioVenta.Value = 0;
         }
 
         private void cargarDtvProductos()
@@ -214,7 +220,7 @@ namespace SdG___Prueba.Modulos
                 {
                     connection.Open();
 
-                    string query = "SELECT p.codProducto, m.nombreMarca,  p.modelo, c.nombreCat, p.cantidadStock, p.precioUnitario " +
+                    string query = "SELECT p.codProducto, m.nombreMarca,  p.modelo, c.nombreCat, p.cantidadStock, p.precioCompra, p.precioVenta " +
                         "FROM producto AS p INNER JOIN marca AS m ON p.idMarca = m.idMarca " +
                         "INNER JOIN categoria AS c ON p.idCategoria = c.idCategoria";
 
@@ -230,7 +236,8 @@ namespace SdG___Prueba.Modulos
                                 reader.GetString("nombreMarca") + " " + reader.GetString("modelo"),
                                 reader.GetString("nombreCat"),
                                 reader.GetInt32("cantidadStock").ToString(),
-                                reader.GetFloat("precioUnitario").ToString()
+                                reader.GetDecimal("precioCompra").ToString(),
+                                reader.GetDecimal("precioVenta").ToString()
                             };
 
                             dtvProductos.Rows.Add(row);
@@ -262,7 +269,8 @@ namespace SdG___Prueba.Modulos
                     buscarMarca(cbxMarca.SelectedItem.ToString()),
                     txtModelo.Text,
                     Convert.ToInt32(numCantidad.Value),
-                    float.Parse(numPrecio.Value.ToString()),
+                    numPrecioCompra.Value,
+                    numPrecioVenta.Value,
                     buscarCategoria(cbxCategoria.SelectedItem.ToString())
                 );
 
@@ -273,7 +281,7 @@ namespace SdG___Prueba.Modulos
 
                     string query = "UPDATE producto " +
                         "SET codProducto=@codNew, idMarca=@idMarca, modelo=@modelo, " +
-                        "cantidadStock=@cantidadStock, precioUnitario=@precioUnitario, idCategoria=@idCat " +
+                        "cantidadStock=@cantidadStock, precioCompra=@precioCompra, precioVenta=@precioVenta, idCategoria=@idCat " +
                         "WHERE codProducto=@codOld";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
@@ -282,7 +290,8 @@ namespace SdG___Prueba.Modulos
                         command.Parameters.AddWithValue("@idMarca", producto.IdMarca);
                         command.Parameters.AddWithValue("@modelo", producto.Modelo);
                         command.Parameters.AddWithValue("@cantidadStock", producto.Cantidad);
-                        command.Parameters.AddWithValue("@precioUnitario", producto.Precio);
+                        command.Parameters.AddWithValue("@precioCompra", producto.PrecioCompra);
+                        command.Parameters.AddWithValue("@precioVenta", producto.PrecioVenta);
                         command.Parameters.AddWithValue("@idCat", producto.IdCat);
                         command.Parameters.AddWithValue("@codOld", codProductoSel);
 
@@ -330,7 +339,8 @@ namespace SdG___Prueba.Modulos
                                 reader.GetInt32("idMarca"),
                                 reader.GetString("modelo"),
                                 reader.GetInt32("cantidadStock"),
-                                reader.GetFloat("precioUnitario"),
+                                reader.GetDecimal("precioCompra"),
+                                reader.GetDecimal("precioVenta"),
                                 reader.GetInt32("idCategoria")
                             );
                         }
@@ -361,7 +371,7 @@ namespace SdG___Prueba.Modulos
 
         private void dtvProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 6)
+            if (e.ColumnIndex == 7)
             {
                 //BtnModificar
                 activarCajas(true);
@@ -372,21 +382,16 @@ namespace SdG___Prueba.Modulos
                 Producto producto = buscarProducto(codProductoSel);
 
                 groupBox1.Text = "Modificar producto";
-                txtCod.Text = producto.Codigo;
-                cbxMarca.SelectedItem = buscarMarcaPorId(producto.IdMarca);
-                txtModelo.Text = producto.Modelo;
-                numCantidad.Value = producto.Cantidad;
-                numPrecio.Value = decimal.Parse(producto.Precio.ToString());
-                cbxCategoria.SelectedItem = buscarCategoriaPorId(producto.IdCat);
+                rellenarDatosCajas(producto);
             }
-            else if (e.ColumnIndex == 7)
+            else if (e.ColumnIndex == 8)
             {
                 //BtnBorrar
                 DataGridViewRow filaSeleccionada = dtvProductos.CurrentRow;
                 codProductoSel = filaSeleccionada.Cells["Codigo"].Value.ToString();
 
                 DialogResult resultado = MessageBox.Show(
-                    "Esta acción eliminará el proveedor seleccionado.\n\n¿Está seguro?",
+                    "Esta acción eliminará el producto seleccionado.\n\n¿Está seguro?",
                     "Atención",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
@@ -424,7 +429,7 @@ namespace SdG___Prueba.Modulos
                     }
                 }
             }
-            else if (e.ColumnIndex == 5)
+            else if (e.ColumnIndex == 6)
             {
                 //BtnMasInfo
                 activarCajas(true);
@@ -437,21 +442,18 @@ namespace SdG___Prueba.Modulos
                 txtModelo.ReadOnly = true;
                 cbxCategoria.Enabled = false;
                 numCantidad.ReadOnly = true;
-                numPrecio.ReadOnly = true;
+                numPrecioCompra.ReadOnly = true;
+                numPrecioVenta.ReadOnly = true;
                 numCantidad.Increment = 0;
-                numPrecio.Increment = 0;
+                numPrecioCompra.Increment = 0;
+                numPrecioVenta.Increment = 0;
 
                 DataGridViewRow filaSeleccionada = dtvProductos.CurrentRow;
                 codProductoSel = filaSeleccionada.Cells["Codigo"].Value.ToString();
                 Producto producto = buscarProducto(codProductoSel);
 
                 groupBox1.Text = "Más info";
-                txtCod.Text = producto.Codigo;
-                cbxMarca.SelectedIndex = producto.IdMarca;
-                txtModelo.Text = producto.Modelo;
-                numCantidad.Value = producto.Cantidad;
-                numPrecio.Value = decimal.Parse(producto.Precio.ToString());
-                cbxCategoria.SelectedIndex = producto.IdCat;
+                rellenarDatosCajas(producto);
             }
         }
 
@@ -476,9 +478,11 @@ namespace SdG___Prueba.Modulos
                 txtModelo.ReadOnly = false;
                 cbxCategoria.Enabled = true;
                 numCantidad.ReadOnly = false;
-                numPrecio.ReadOnly = false;
+                numPrecioCompra.ReadOnly = false;
+                numPrecioVenta.ReadOnly = false;
                 numCantidad.Increment = 1000;
-                numPrecio.Increment = 1000;
+                numPrecioCompra.Increment = 1000;
+                numPrecioVenta.Increment = 1000;
             }
 
             opcionElegida = 0;
@@ -646,7 +650,7 @@ namespace SdG___Prueba.Modulos
                     {
                         connection.Open();
 
-                        string query = "SELECT p.codProducto, m.nombreMarca,  p.modelo, c.nombreCat, p.cantidadStock, p.precioUnitario " +
+                        string query = "SELECT p.codProducto, m.nombreMarca,  p.modelo, c.nombreCat, p.cantidadStock, p.precioCompra, p.precioVenta " +
                             "FROM producto AS p INNER JOIN marca AS m ON p.idMarca = m.idMarca " +
                             "INNER JOIN categoria AS c ON p.idCategoria = c.idCategoria " +
                             "WHERE " + item + " like @texto";
@@ -662,12 +666,13 @@ namespace SdG___Prueba.Modulos
                             {
 
                                 string[] row = {
-                                reader.GetString("codProducto"),
-                                reader.GetString("nombreMarca") + " " + reader.GetString("modelo"),
-                                reader.GetString("nombreCat"),
-                                reader.GetInt32("cantidadStock").ToString(),
-                                reader.GetFloat("precioUnitario").ToString()
-                            };
+                                    reader.GetString("codProducto"),
+                                    reader.GetString("nombreMarca") + " " + reader.GetString("modelo"),
+                                    reader.GetString("nombreCat"),
+                                    reader.GetInt32("cantidadStock").ToString(),
+                                    reader.GetFloat("precioCompra").ToString(),
+                                    reader.GetFloat("precioVenta").ToString()
+                                };
 
                                 dtvProductos.Rows.Add(row);
                             }
@@ -682,6 +687,17 @@ namespace SdG___Prueba.Modulos
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
+        }
+
+        private void rellenarDatosCajas(Producto producto)
+        {
+            txtCod.Text = producto.Codigo;
+            cbxMarca.SelectedItem = buscarMarcaPorId(producto.IdMarca);
+            txtModelo.Text = producto.Modelo;
+            numCantidad.Value = producto.Cantidad;
+            numPrecioCompra.Value = decimal.Parse(producto.PrecioCompra.ToString());
+            numPrecioVenta.Value = decimal.Parse(producto.PrecioVenta.ToString());
+            cbxCategoria.SelectedItem = buscarCategoriaPorId(producto.IdCat);
         }
 
     }

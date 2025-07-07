@@ -167,6 +167,7 @@
             itemNuevaVenta.Size = new Size(200, 30);
             itemNuevaVenta.Text = "Nueva venta";
             itemNuevaVenta.Visible = false;
+            itemNuevaVenta.Click += itemNuevaVenta_Click;
             // 
             // itemListaDeVentas
             // 

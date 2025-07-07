@@ -20,7 +20,7 @@ namespace SdG___Prueba
     {
         bool verItemsVentas = false;
         bool verItemsCompras = false;
-        private readonly Personal personal;
+        public readonly Personal personal;
         public FormPrincipal(Personal personal)
         {
             this.personal = personal;
@@ -146,6 +146,11 @@ namespace SdG___Prueba
         private void itemCajas_Click(object sender, EventArgs e)
         {
             AbrirFormulario(typeof(FormCajas));
+        }
+
+        private void itemNuevaVenta_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(typeof(FormNuevaVenta));
         }
     }
 

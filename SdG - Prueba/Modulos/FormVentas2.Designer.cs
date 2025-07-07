@@ -1,6 +1,6 @@
 ﻿namespace SdG___Prueba.Modulos
 {
-    partial class FormVentas
+    partial class FormVentas2
     {
         /// <summary>
         /// Required designer variable.
@@ -41,12 +41,6 @@
             label2 = new Label();
             textBox1 = new TextBox();
             label1 = new Label();
-            label7 = new Label();
-            textBox7 = new TextBox();
-            label8 = new Label();
-            textBox8 = new TextBox();
-            label9 = new Label();
-            textBox9 = new TextBox();
             groupBox2 = new GroupBox();
             button1 = new Button();
             dataGridView1 = new DataGridView();
@@ -73,7 +67,7 @@
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(textBox1);
             groupBox1.Controls.Add(label1);
-            groupBox1.Location = new Point(96, 58);
+            groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(676, 179);
             groupBox1.TabIndex = 0;
@@ -182,62 +176,11 @@
             label1.TabIndex = 0;
             label1.Text = "ID Cliente:";
             // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 12F);
-            label7.Location = new Point(96, 9);
-            label7.Name = "label7";
-            label7.Size = new Size(91, 21);
-            label7.TabIndex = 12;
-            label7.Text = "ID Personal:";
-            // 
-            // textBox7
-            // 
-            textBox7.Location = new Point(202, 11);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(86, 23);
-            textBox7.TabIndex = 12;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 12F);
-            label8.Location = new Point(307, 11);
-            label8.Name = "label8";
-            label8.Size = new Size(71, 21);
-            label8.TabIndex = 13;
-            label8.Text = "Nombre:";
-            // 
-            // textBox8
-            // 
-            textBox8.Location = new Point(384, 9);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(149, 23);
-            textBox8.TabIndex = 14;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 12F);
-            label9.Location = new Point(558, 9);
-            label9.Name = "label9";
-            label9.Size = new Size(55, 21);
-            label9.TabIndex = 12;
-            label9.Text = "Cargo:";
-            // 
-            // textBox9
-            // 
-            textBox9.Location = new Point(619, 11);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(86, 23);
-            textBox9.TabIndex = 15;
-            // 
             // groupBox2
             // 
             groupBox2.Controls.Add(button1);
             groupBox2.Controls.Add(dataGridView1);
-            groupBox2.Location = new Point(96, 252);
+            groupBox2.Location = new Point(12, 206);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(676, 242);
             groupBox2.TabIndex = 16;
@@ -286,7 +229,7 @@
             Cantidad.HeaderText = "Cantidad";
             Cantidad.Name = "Cantidad";
             // 
-            // FormVentas
+            // FormVentas2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -294,22 +237,15 @@
             ClientSize = new Size(800, 688);
             ControlBox = false;
             Controls.Add(groupBox2);
-            Controls.Add(textBox9);
-            Controls.Add(label9);
-            Controls.Add(textBox8);
-            Controls.Add(label8);
-            Controls.Add(textBox7);
-            Controls.Add(label7);
             Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FormVentas";
+            Name = "FormVentas2";
             Text = "FormVentas";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -327,12 +263,6 @@
         private Label label2;
         private TextBox textBox1;
         private Label label1;
-        private Label label7;
-        private TextBox textBox7;
-        private Label label8;
-        private TextBox textBox8;
-        private Label label9;
-        private TextBox textBox9;
         private GroupBox groupBox2;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn Codigo;

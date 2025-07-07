@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SdG___Prueba.Modulos
 {
-    public partial class FormVentas : Form
+    public partial class FormVentas2 : Form
     {
-        public FormVentas()
+        public FormVentas2()
         {
             InitializeComponent();
         }
