@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,38 @@ namespace SdG___Prueba.Clases
         public decimal PrecioVenta { get; set; } = precioVenta;
         public int IdCat { get; set; } = idCat;
 
+        public static string buscarCodigoPorID(int id)
+        {
+            try
+            {
+                string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT * FROM producto WHERE idProducto=@id";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+
+                        MySqlDataReader reader = command.ExecuteReader();
+                        if (!reader.Read())
+                        {
+                            return null;
+                        }
+                        else
+                        {
+                            return reader.GetString("codProducto");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return null;
+            }
+        }
     }
 }

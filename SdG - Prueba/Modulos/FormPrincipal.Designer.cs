@@ -180,6 +180,7 @@
             itemListaDeVentas.Size = new Size(200, 30);
             itemListaDeVentas.Text = "Lista de ventas";
             itemListaDeVentas.Visible = false;
+            itemListaDeVentas.Click += itemListaDeVentas_Click;
             // 
             // itemCompras
             // 

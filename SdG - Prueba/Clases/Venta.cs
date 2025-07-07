@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,53 @@ namespace SdG___Prueba.Clases
         public int IdPersonal { set; get; } = idPersonal;
         public int IdCliente { set; get; } = idCliente;
         public int IdCaja { set; get; } = idCaja;
+
+        public static Venta buscarVentaPorId(int id)
+        {
+            try
+            {
+                string connectionString = "Server=localhost;Database=sdg;Uid=root;Pwd=";
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT * FROM venta WHERE idVenta=@id";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+
+                        MySqlDataReader reader = command.ExecuteReader();
+                        if (!reader.Read())
+                        {
+                            return null;
+                        }
+                        else
+                        {
+                            return new Venta(
+                                reader.GetInt32("idVenta"),
+                                DateOnly.FromDateTime(reader.GetDateTime("fechaVenta")),
+                                TimeOnly.FromTimeSpan(reader.GetTimeSpan("horaVenta")),
+                                reader.GetDecimal("importeTotal"),
+                                reader.GetDecimal("importePagado"),
+                                reader.GetDecimal("importeCambio"),
+                                reader.GetInt32("idPersonal"),
+                                reader.GetInt32("idCliente"),
+                                reader.GetInt32("idCaja")
+                            );
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return null;
+            }
+        }
     }
+
+    
+
+
 }

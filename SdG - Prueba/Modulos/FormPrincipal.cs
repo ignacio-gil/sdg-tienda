@@ -152,6 +152,11 @@ namespace SdG___Prueba
         {
             AbrirFormulario(typeof(FormNuevaVenta));
         }
+
+        private void itemListaDeVentas_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(typeof(FormListaDeVentas));
+        }
     }
 
 
